@@ -1,0 +1,25 @@
+{
+  "name": "isolationhelp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CeciNB/isolationhelp.git"
+  },
+  "keywords": [],
+  "author": "CeciNB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CeciNB/isolationhelp/issues"
+  },
+  "homepage": "https://github.com/CeciNB/isolationhelp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
