@@ -35,6 +35,6 @@ app.get('/settings', (req, res) => {
     res.send(testPage)
 })
 
-const server = app.listen(process.env.port || 3000, (error) => {
+const server = app.listen(process.env.port || 5000, (error) => {
     error ? console.log(error) : console.log('Server listening on port', server.address().port)
 })
