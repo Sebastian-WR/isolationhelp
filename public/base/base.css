@@ -1,0 +1,27 @@
+body {
+    margin: 0%;
+}
+header {
+    background-color: blueviolet;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+#sidenav {
+    background-color: aqua;
+    height: 100vh;
+    width: 15rem;
+}
+#content {
+    background-color: antiquewhite;
+    padding-left: 2rem;
+    height: 100vh;
+    width: 100vw;
+}
