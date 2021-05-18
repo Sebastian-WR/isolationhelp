@@ -1,27 +1,90 @@
+/* imperial red: #E63946 */
+/* honeydew: #F1FAEE */
+/* powder blue: #A8DADC */
+/* iceladon blue: #457B9D */
+/* prussian blue: #1D3557 */
+/* ghost white: #F7F7FF */
 body {
     margin: 0%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #f7f7ff;
+    overflow: hidden; /* too hide chrome scrollbar*/
 }
+/* Container for top bar with logo and log out btn*/
 header {
-    background-color: blueviolet;
-    padding-left: 2rem;
+    background-color: #ff6666;
+    padding-left: 1rem;
     padding-right: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+/* Container for sidenav and main content */
 main {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 }
 #sidenav {
-    background-color: aqua;
+    background-color: #ff6666;
+    padding-right: 2rem;
     height: 100vh;
-    width: 15rem;
+    width: auto;
 }
 #content {
-    background-color: antiquewhite;
+    background-color: #a8dadc;
     padding-left: 2rem;
     height: 100vh;
     width: 100vw;
+    overflow: scroll; /* too make content scrollable*/
+}
+
+/* Logo styling */
+#logoDiv,
+a {
+    display: flex;
+    align-items: center;
+}
+#logo {
+    padding: 0.5rem;
+}
+.logoLink:link {
+    color: #1d3557;
+    text-decoration: none;
+}
+.logoLink:visited {
+    color: #1d3557;
+    text-decoration: none;
+}
+.logoLink:hover {
+    text-decoration: none;
+    color: #1d3557;
+}
+.logoLink:active {
+    text-decoration: none;
+    color: #1d3557;
+}
+
+/*Nav styling*/
+#navList {
+    list-style: none;
+}
+#navList,
+li {
+    padding: 1rem;
+}
+.navLink:link {
+    color: #1d3557;
+    text-decoration: none;
+}
+.navLink:visited {
+    color: #1d3557;
+    text-decoration: none;
+}
+.navLink:hover {
+    color: #f7f7ff;
+    text-decoration: none;
+}
+.navLink:active {
+    text-decoration: none;
 }
