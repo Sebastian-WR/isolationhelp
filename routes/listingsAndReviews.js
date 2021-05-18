@@ -8,7 +8,7 @@ const db_password = process.env.DB_PASSWORD
 
 const dbName = 'sample_airbnb'
 const colName = 'listingsAndReviews'
-
+/*
 const url = `mongodb+srv://${db_user}:${db_password}@${db_host}/${db_database}?retryWrites=true&w=majority`
 
 router.get('/api/getAll', (req, res) => {
@@ -30,7 +30,7 @@ router.get('/api/getAll', (req, res) => {
         })
     })
 })
-
+*/
 module.exports = {
     router,
 }
