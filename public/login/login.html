@@ -1,14 +1,17 @@
-<div>
-    <form action="" method="POST" id="login-form">
+<div id="login-container">
+    <form action="/login" method="POST" id="login-form">
+        <div id="login-header"> <b>Isoaltion Help</b> </div>
         <div>
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Ex. Jonh Doe">
+            <input type="text" id="username" name="username" placeholder="Ex. Jonh Doe">
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password">
+            <input type="password" id="password" name="password" placeholder="Ex. Top secret shit">
         </div>
-        <button type="submit">Login</button>
+        <div id="lower">
+            <input type="submit" value="Login">
+        </div>
     </form>
 </div>
 
