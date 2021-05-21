@@ -1,15 +1,15 @@
-const dotenv = require('dotenv').config()
-const express = require('express')
+const config = require('./config')
 const fetch = require('node-fetch')
+const express = require('express')
 const fs = require('fs')
-const listingsRouter = require('./routes/listingsAndReviews')
+const listingsRouter = require('./routes/listings').router
 
 const app = express()
 
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true })) // for nested post body?
-app.use(listingsRouter.router)
+app.use(listingsRouter)
 
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
