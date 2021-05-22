@@ -1,58 +1,58 @@
 const router = require('express').Router()
-const listingsRepo = require('../repos/listings')
+const tasksRepo = require('../repos/tasks')
 
-router.get('/api/listings', async (req, res) => {
-    let listings = await listingsRepo.readOneOrMore()
-    if (listings.length > 0) {
-        console.log('Listings found')
-        return res.send({ listings })
+router.get('/api/tasks', async (req, res) => {
+    let tasks = await tasksRepo.readOneOrMore()
+    if (tasks.length > 0) {
+        console.log('tasks found')
+        return res.send({ tasks })
     }
-    console.log('No listings found')
+    console.log('No tasks found')
     res.send({ error })
 })
 
-router.get('/api/listings/:id', async (req, res) => {
+router.get('/api/tasks/:id', async (req, res) => {
     const id = req.params.id
-    let listing = await listingsRepo.readOne(id)
-    if (listing) {
-        console.log('Listing found')
-        return res.send({ listing })
+    let task = await tasksRepo.readOne(id)
+    if (task) {
+        console.log('task found')
+        return res.send({ task })
     }
-    console.log('Listing missing')
+    console.log('task missing')
     res.send({ error })
 })
 
-router.post('/api/listings', async (req, res) => {
+router.post('/api/tasks', async (req, res) => {
     const doc = req.body
-    let success = await listingsRepo.createOne(doc)
+    let success = await tasksRepo.createOne(doc)
     if (success) {
-        console.log('Listing created')
+        console.log('task created')
         return res.send({ success })
     }
-    console.log('No listings created')
+    console.log('No tasks created')
     res.send({ error })
 })
 
-router.patch('/api/listings/:id', async (req, res) => {
+router.patch('/api/tasks/:id', async (req, res) => {
     const id = req.params.id
     const fields = req.body
-    let success = await listingsRepo.updateOne(id, fields)
+    let success = await tasksRepo.updateOne(id, fields)
     if (success) {
-        console.log('Listing updated')
+        console.log('task updated')
         return res.send({ success })
     }
-    console.log('No listings found')
+    console.log('No tasks found')
     res.send({ error })
 })
 
-router.delete('/api/listings/:id', async (req, res) => {
+router.delete('/api/tasks/:id', async (req, res) => {
     const id = req.params.id
-    let success = await listingsRepo.deleteOne(id)
+    let success = await tasksRepo.deleteOne(id)
     if (success) {
-        console.log('Listing deleted', id)
+        console.log('task deleted', id)
         return res.send({ success })
     }
-    console.log('No listings found')
+    console.log('No tasks found')
     res.send({ error })
 })
 

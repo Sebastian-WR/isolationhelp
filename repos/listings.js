@@ -1,26 +1,26 @@
 const client = require('../db/client')
-const colName = 'listings'
+const colName = 'tasks'
 
 const readOne = async (field) => {
-    let listing = {}
+    let task = {}
     try {
         const db = await client.getDB()
-        listing = await db.collection(colName).findOne(field)
+        task = await db.collection(colName).findOne(field)
     } catch (error) {
         console.log(error)
     }
-    return listing
+    return task
 }
 
 const readOneOrMore = async (fields) => {
-    let listings = []
+    let tasks = []
     try {
         const db = await client.getDB()
-        listings = await db.collection(colName).find(fields).toArray()
+        tasks = await db.collection(colName).find(fields).toArray()
     } catch (error) {
         console.log(error)
     }
-    return listings
+    return tasks
 }
 const createOne = async (doc) => {
     let success
