@@ -1,31 +1,71 @@
 const client = require('../client')
 const colName = 'listings'
 
-// const readOne = (option) => {
-//     return connect(() => {
-//         return (result = client.db(dbName).collection(colName).findOne(option))
-//     })
-// }
-
-const readOneOrMore = async (options) => {
+const readOne = async (field) => {
+    let listing = {}
     try {
         const db = await client.getDB()
-        const cursor = db.collection(colName).find(options)
-        return await cursor.toArray()
+        listing = await db.collection(colName).findOne(field)
     } catch (error) {
         console.log(error)
     }
+    return listing
 }
-const createOne = () => {}
-const createOneOrMore = () => {}
-const updateOne = () => {}
-const deleteOne = () => {}
+
+const readOneOrMore = async (fields) => {
+    let listings = []
+    try {
+        const db = await client.getDB()
+        listings = await db.collection(colName).find(fields).toArray()
+    } catch (error) {
+        console.log(error)
+    }
+    return listings
+}
+const createOne = async (doc) => {
+    let success
+    try {
+        const db = await client.getDB()
+        const result = await db.collection(colName).insertOne(doc)
+        result.insertedCount === 1 ? (success = true) : (success = false)
+    } catch (error) {
+        console.log(error)
+    }
+    return success
+}
+const updateOne = async (id, fields) => {
+    const filter = { _id: id }
+    const options = { upsert: false }
+    const doc = {
+        $set: fields,
+    }
+    let success
+    try {
+        const db = await client.getDB()
+        const result = await db.collection(colName).updateOne(filter, doc, options)
+        result.matchedCount === 1 ? (success = true) : (success = false)
+    } catch (error) {
+        console.log(error)
+    }
+    return success
+}
+
+const deleteOne = async (field) => {
+    let success
+    try {
+        const db = await client.getDB()
+        const result = await db.collection(colName).deleteOne(field)
+        result.deletedCount === 1 ? (success = true) : (success = false)
+    } catch (error) {
+        console.log(error)
+    }
+    return success
+}
 
 module.exports = {
-    //readOne,
+    readOne,
     readOneOrMore,
     createOne,
-    createOneOrMore,
     updateOne,
     deleteOne,
 }
