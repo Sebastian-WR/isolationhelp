@@ -15,10 +15,12 @@ const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
 const loginHtml = fs.readFileSync(__dirname + '/public/login/login.html', 'utf-8')
 const myTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
+const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 
 const testPage = baseTemplate.replace('{{BODY}}', testHtml)
 const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
 const myTasksPage = baseTemplate.replace('{{BODY}}', myTaskHtml)
+const tasksPage = baseTemplate.replace('{{BODY}}', taskHtml)
 
 app.get('/', (req, res) => {
     res.send(testPage)
@@ -33,7 +35,7 @@ app.get('/chats', (req, res) => {
 })
 
 app.get('/tasks', (req, res) => {
-    res.send(testPage)
+    res.send(tasksPage)
 })
 
 app.get('/mytasks', (req, res) => {
