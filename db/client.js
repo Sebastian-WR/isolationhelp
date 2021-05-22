@@ -4,26 +4,26 @@ const dbName = 'isolationhelp'
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    poolSize: 50,
 })
 
-async function connect(query) {
-    let result
+async function connect() {
     try {
         await client.connect()
         console.log('mongo connected')
-        result = await query()
     } catch (error) {
         console.log('mongo not connect')
         throw new Error(`Can't connect`)
-    } finally {
-        await client.close()
-        console.log('mongo no more')
-        return result
     }
 }
 
+const getDB = async () => {
+    if (!client.isConnected()) {
+        await connect()
+    }
+    return client.db(dbName)
+}
+
 module.exports = {
-    client,
-    dbName,
-    connect,
+    getDB,
 }

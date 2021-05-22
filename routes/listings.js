@@ -1,8 +1,13 @@
 const router = require('express').Router()
-const listingsDb = require('../db/listings/listings')
+const listingsRepo = require('../db/repos/listings')
 
 router.get('/api/listings', async (req, res) => {
-    let listings = await listingsDb.readOneOrMore()
+    let listings = await listingsRepo.readOneOrMore()
+    if (listings.length > 0) {
+        console.log('Listings found')
+    } else {
+        console.log('No listings found')
+    }
     res.send({ listings })
 })
 
