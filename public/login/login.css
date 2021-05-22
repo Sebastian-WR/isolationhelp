@@ -1,19 +1,14 @@
 /* Basics */
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
-    color: #444;
-    -webkit-font-smoothing: antialiased;
-    background: #78d5d8;
-}
 #login-header {
-    text-align: center; 
-    color: #2f5c5e; 
-    font-size: x-large; 
+    text-align: center;
+    color: #2f5c5e;
+    font-size: x-large;
     margin-bottom: 1.5rem;
 }
 #login-container {
+    color: #444;
+    -webkit-font-smoothing: antialiased;
+    background: #78d5d8;
     position: fixed;
     width: 340px;
     height: 280px;
@@ -21,10 +16,10 @@ html, body {
     left: 50%;
     margin-top: -140px;
     margin-left: -170px;
-	background: #ff6666;
+    background: #ff6666;
     border-radius: 20px;
     border: 1px solid #ccc;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 #mytasks-container {
     position: fixed;
@@ -34,10 +29,10 @@ html, body {
     left: 50%;
     margin-top: -140px;
     margin-left: -170px;
-	background: #ff6666;
+    background: #ff6666;
     border-radius: 20px;
     border: 1px solid #ccc;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 form {
     margin: 0 auto;
@@ -56,20 +51,22 @@ p a {
     float: right;
     margin-top: -13px;
     margin-right: 20px;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 p a:hover {
     color: #555;
 }
 input {
-    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
     font-size: 12px;
     outline: none;
 }
-input[type=text],
-input[type=password], input[type=time], input[type=date] {
+input[type='text'],
+input[type='password'],
+input[type='time'],
+input[type='date'] {
     color: #777;
     padding-left: 10px;
     margin: 10px;
@@ -77,34 +74,38 @@ input[type=password], input[type=time], input[type=date] {
     margin-left: 18px;
     width: 290px;
     height: 35px;
-	border: 1px solid #c7d0d2;
+    border: 1px solid #c7d0d2;
     border-radius: 2px;
-    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #78d5d8;
-    -webkit-transition: all .4s ease;
-    -moz-transition: all .4s ease;
-    transition: all .4s ease;
-	}
-input[type=text]:hover,
-input[type=password]:hover , input[type=time]:hover, input[type=date]:hover {
-    border: 1px solid #b6bfc0;
-    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .7), 0 0 0 5px #f5f7f8;
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.4), 0 0 0 5px #78d5d8;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
-input[type=text]:focus,
-input[type=password]:focus, input[type=time]:focus, input[type=date]:focus {
+input[type='text']:hover,
+input[type='password']:hover,
+input[type='time']:hover,
+input[type='date']:hover {
+    border: 1px solid #b6bfc0;
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.7), 0 0 0 5px #f5f7f8;
+}
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='time']:focus,
+input[type='date']:focus {
     border: 1px solid #a8c9e4;
-    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #e6f2f9;
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.4), 0 0 0 5px #e6f2f9;
 }
 #lower {
     background: #ff6666;
     width: 100%;
     height: 69px;
     margin-top: 20px;
-	box-shadow: inset 0 1px 1px #78d5d8;
+    box-shadow: inset 0 1px 1px #78d5d8;
     border-top: 1px solid #78d5d8;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
 }
-input[type=submit] {
+input[type='submit'] {
     float: right;
     margin-right: 20px;
     margin-top: 20px;
@@ -113,9 +114,9 @@ input[type=submit] {
     font-size: 14px;
     font-weight: bold;
     color: #fff;
-    background-color: #78d5d8; 
+    background-color: #78d5d8;
     border-radius: 30px;
     border: 1px solid #78d5d8;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
     cursor: pointer;
 }
