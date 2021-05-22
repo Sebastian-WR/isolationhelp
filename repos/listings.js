@@ -1,4 +1,4 @@
-const client = require('../client')
+const client = require('../db/client')
 const colName = 'listings'
 
 const readOne = async (field) => {

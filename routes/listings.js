@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const listingsRepo = require('../db/repos/listings')
+const listingsRepo = require('../repos/listings')
 
 router.get('/api/listings', async (req, res) => {
     let listings = await listingsRepo.readOneOrMore()
