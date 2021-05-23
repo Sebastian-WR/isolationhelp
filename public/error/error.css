@@ -1,0 +1,21 @@
+#mainbox {
+    color: #1d3557;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 3rem;
+    padding: 3rem;
+}
+#error {
+    color: #f7f7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20rem;
+}
+.err {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
