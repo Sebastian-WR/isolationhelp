@@ -2,13 +2,18 @@ const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
 router.get('/api/tasks', async (req, res) => {
-    let tasks = await tasksRepo.readOneOrMore()
+    let tasks
+    if (req.query) {
+        tasks = await tasksRepo.readOneOrMore(req.query)
+    } else {
+        tasks = await tasksRepo.readOneOrMore()
+    }
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })
     }
     console.log('No tasks found')
-    res.send({ error })
+    res.send({ error: 'No tasks found' })
 })
 
 router.get('/api/tasks/:id', async (req, res) => {
@@ -19,7 +24,7 @@ router.get('/api/tasks/:id', async (req, res) => {
         return res.send({ task })
     }
     console.log('task missing')
-    res.send({ error })
+    res.send({ error: 'task missing' })
 })
 
 router.post('/api/tasks', async (req, res) => {
@@ -29,8 +34,8 @@ router.post('/api/tasks', async (req, res) => {
         console.log('task created')
         return res.send({ success })
     }
-    console.log('No tasks created')
-    res.send({ error })
+    console.log('No task created')
+    res.send({ error: 'No tasks created' })
 })
 
 router.patch('/api/tasks/:id', async (req, res) => {
@@ -41,8 +46,8 @@ router.patch('/api/tasks/:id', async (req, res) => {
         console.log('task updated')
         return res.send({ success })
     }
-    console.log('No tasks found')
-    res.send({ error })
+    console.log('No task found')
+    res.send({ error: 'No tasks found' })
 })
 
 router.delete('/api/tasks/:id', async (req, res) => {
@@ -52,8 +57,8 @@ router.delete('/api/tasks/:id', async (req, res) => {
         console.log('task deleted', id)
         return res.send({ success })
     }
-    console.log('No tasks found')
-    res.send({ error })
+    console.log('No task deleted')
+    res.send({ error: 'No tasks deleted' })
 })
 
 module.exports = {

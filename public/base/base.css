@@ -1,4 +1,5 @@
 /* imperial red: #E63946 */
+/* less harsh #ff6666 */
 /* honeydew: #F1FAEE */
 /* powder blue: #A8DADC */
 /* iceladon blue: #457B9D */
@@ -37,6 +38,7 @@ main {
     background-color: #a8dadc;
     height: calc(100vh - 3rem);
     width: 100%;
+    padding: 0rem 3rem;
     overflow-y: scroll;
 }
 
