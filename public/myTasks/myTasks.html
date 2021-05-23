@@ -1,31 +1,22 @@
-<div id="mytasks-container">
-    <form action="/myTasks" method="POST" id="task-form" id="login-form">
-        <div>
-            <label for="task-headline">Headline</label> <br>
-            <input type="text" id="task-headline" name="task-headline" placeholder="Ex. Mowing of lawn">
-        </div>
-        <div>
-            <label for="task-description">Description</label> <br>
-            <input type="text" id="task-description" name="task-description" placeholder="Ex. Mowing the front lawn at my house, 300 square meters.">
-        </div>
-        <div>
-            <label for="location">Location</label> <br>
-            <input type="text" id="location" name="location" placeholder="Ex. Mystreet 123, Copenhagen 2100">
-        </div>
-        <div>
-            <label for="date">Date</label> <br>
-            <input type="date" id="date" name="date">
-        </div>
-        <div>
-            <label for="time">Time</label> <br>
-            <input type="time" id="timee" name="time">
-        </div>
-        <div>
-            <label for="reward">Reward</label> <br>
-            <input type="text" id="reward" name="reward" placeholder="Ex. 150kr, Newly bakes cookies, a hug">
-        </div>
-        <div>
-            <input type="submit" value="Submit Task">
-        </div>
-    </form>
+<div class="main">
+    <table class="task-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>
+                    <div class="tooltip">
+                        <a class="a-ref" onclick="location.href='/createTask'">+</a>
+                        <span class="tooltiptext">Add a task</span>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
 </div>
+
+<script src=""></script>
