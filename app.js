@@ -3,6 +3,7 @@ const fetch = require('node-fetch')
 const express = require('express')
 const fs = require('fs')
 const tasksRouter = require('./routes/tasks').router
+const client = require('./db/client')
 
 const app = express()
 
@@ -64,4 +65,12 @@ app.get('/*', (req, res) => {
 
 const server = app.listen(process.env.PORT || 3000, (error) => {
     error ? console.log(error) : console.log('Server listening on port', server.address().port)
+})
+
+server.on('close', () => {
+    client.close()
+})
+
+process.on('SIGINT', () => {
+    server.close()
 })
