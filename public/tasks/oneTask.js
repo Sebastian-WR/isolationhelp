@@ -1,9 +1,7 @@
 ;(async function getTask() {
-    const queryString = window.location.href;
-    var res = queryString.substr(28);
-    console.log("heeL", res);
+    const queryString = window.location.href.substr(28);
     try {
-        const response = await fetch(`/api/tasks/${res}`)
+        const response = await fetch(`/api/tasks/${queryString}`)
         const body = await response.json()
         const task = body.task
 
