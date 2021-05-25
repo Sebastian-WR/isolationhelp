@@ -24,6 +24,15 @@ const getDB = async () => {
     return client.db(dbName)
 }
 
+async function close() {
+    if (client.isConnected()) {
+        console.log('mongo was connected')
+        await client.close()
+        console.log('mongo no more connect')
+    }
+}
+
 module.exports = {
     getDB,
+    close,
 }
