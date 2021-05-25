@@ -1,15 +1,32 @@
 const config = require('./config')
 const fetch = require('node-fetch')
+const helmet = require('helmet')
 const express = require('express')
 const fs = require('fs')
 const tasksRouter = require('./routes/tasks').router
+const authRouter = require('./routes/auth').router
 
 const app = express()
 
 app.use(express.json())
 app.use(express.static('public'))
-app.use(express.urlencoded({ extended: true })) // for nested post body?
-app.use(tasksRouter)
+//app.use(express.urlencoded({ extended: true }))
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", 'https://ajax.googleapis.com'],
+                styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com'],
+                fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
+                imgSrc: ["'self'", 'data:'],
+            },
+        },
+    }),
+)
+
+app.use('/api/tasks', tasksRouter)
+app.use('/api/auth', authRouter)
 
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
@@ -18,6 +35,7 @@ const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 
 const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
+const registerHtml = fs.readFileSync(__dirname + '/public/register/register.html', 'utf-8')
 
 const testPage = baseTemplate.replace('{{BODY}}', testHtml)
 const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
@@ -28,6 +46,10 @@ const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 
 app.get('/', (req, res) => {
     res.send(testPage)
+})
+
+app.get('/register', (req, res) => {
+    res.send(registerHtml)
 })
 
 app.get('/login', (req, res) => {
