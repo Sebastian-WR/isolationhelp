@@ -18,9 +18,11 @@ router.get('/api/tasks', async (req, res) => {
 
 router.get('/api/tasks/:id', async (req, res) => {
     const id = req.params.id
+    console.log(id);
     let task = await tasksRepo.readOne(id)
     if (task) {
         console.log('task found')
+        console.log(task);
         return res.send({ task })
     }
     console.log('task missing')

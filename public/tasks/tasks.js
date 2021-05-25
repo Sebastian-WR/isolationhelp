@@ -21,7 +21,7 @@
                         .attr('href', `/tasks/${task._id}`)
                         .append(
                             $('<button></button>')
-                                .text('Edit')
+                                .text('Details')
                                 .attr({ type: 'button', class: 'table-btn' }),
                         ),
                 ),

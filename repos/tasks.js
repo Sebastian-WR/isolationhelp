@@ -1,11 +1,12 @@
 const client = require('../db/client')
+const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
-const readOne = async (field) => {
+const readOne = async (id) => {
     let task = {}
     try {
         const db = await client.getDB()
-        task = await db.collection(colName).findOne(field)
+        task = await db.collection(colName).findOne(ObjectId(id))
     } catch (error) {
         console.log(error)
     }
