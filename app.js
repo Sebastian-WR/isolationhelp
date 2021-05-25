@@ -71,6 +71,6 @@ server.on('close', () => {
     client.close()
 })
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
     server.close()
 })
