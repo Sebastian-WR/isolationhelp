@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
-const { body, validationResult } = require('express-validator');
 
 router.get('/api/tasks', async (req, res) => {
     let tasks
@@ -28,19 +27,7 @@ router.get('/api/tasks/:id', async (req, res) => {
     res.send({ error: 'task missing' })
 })
 
-router.post('/api/tasks',
-body('title').not().isEmpty(),
-body('category').not().isEmpty(),
-body('description').not().isEmpty(),
-body('location').not().isEmpty(),
-body('date').not().isEmpty(),
-body('time').not().isEmpty(),
-body('reward').not().isEmpty(),
-async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+router.post('/api/tasks', async (req, res) => {
     const doc = req.body
     let success = await tasksRepo.createOne(doc)
     if (success) {
