@@ -1,4 +1,5 @@
-const client = require('../db/client')
+const client = require('.././client')
+const userSchema = require('../models/users')
 const colName = 'users'
 
 const readOne = async (field) => {
@@ -23,8 +24,11 @@ const readOneOrMore = async (fields) => {
     return users
 }
 const createOne = async (doc) => {
-    let success
+    let success = false
     try {
+        const value = await userSchema.validateAsync(doc)
+        if (!value) return success
+        
         const db = await client.getDB()
         const result = await db.collection(colName).insertOne(doc)
         result.insertedCount === 1 ? (success = true) : (success = false)

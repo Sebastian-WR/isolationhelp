@@ -1,4 +1,4 @@
-const client = require('../db/client')
+const client = require('../util/client')
 const colName = 'tasks'
 
 const readOne = async (field) => {
