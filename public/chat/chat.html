@@ -1,0 +1,38 @@
+<div id="socket-holder">
+    <h1>Chat</h1>
+    <!-- <input name= "user" placeholder="User Name">
+    <input name= "chat" placeholder="Message"> -->
+    <div id="container">
+        <form>
+            <div>
+                <input id="user" placeholder="User Name" />
+                <input id="chat" placeholder="Message" />
+            </div>
+            <div>
+                <button>Send</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const socket = io()
+        const form = document.querySelector('form')
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            const inputU = document.querySelector('#user')
+            const user = inputU.value
+            const inputC = document.querySelector('#chat')
+            const chat = inputC.value
+            socket.emit('message', { user: user, chat: chat })
+            inputC.value = ''
+        })
+
+        socket.on('response', (data) => {
+            console.log(data)
+
+            const messageP = document.createElement('p')
+            messageP.innerText = data.user + ': ' + data.chat
+            container.appendChild(messageP)
+            //     // document.body.style.backgroundColor = data.color;
+        })
+    </script>
+</div>
