@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
+const {validationSchema} = require('../public/myTasks/createValidator')
+const { ValidationError } = require('joi')
 
 router.get('/api/tasks', async (req, res) => {
     let tasks
@@ -28,14 +30,26 @@ router.get('/api/tasks/:id', async (req, res) => {
 })
 
 router.post('/api/tasks', async (req, res) => {
-    const doc = req.body
-    let success = await tasksRepo.createOne(doc)
-    if (success) {
-        console.log('task created')
-        return res.send({ success })
-    }
-    console.log('No task created')
-    res.send({ error: 'No tasks created' })
+    try {
+        const result = await validationSchema.validateAsync(req.body)
+        let success = await tasksRepo.createOne(result)
+        if (success) {
+            console.log('task created')
+            return res.send({ success })
+        }
+    } catch (ValidationError) { 
+        req.session.valid = true
+        console.log(req.session.valid);
+        res.redirect('back')
+    }  
+    // const doc = req.body
+    // let success = await tasksRepo.createOne(result)
+    // if (success) {
+    //     console.log('task created')
+    //     return res.send({ success })
+    // }
+    // console.log('No task created')
+    // res.send({ error: 'No tasks created' })
 })
 
 router.patch('/api/tasks/:id', async (req, res) => {

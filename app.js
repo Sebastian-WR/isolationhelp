@@ -4,13 +4,22 @@ const express = require('express')
 const fs = require('fs')
 const tasksRouter = require('./routes/tasks').router
 const client = require('./db/client')
+const session = require('express-session')
+const bodyParser = require('body-parser')
 
 const app = express()
 
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true })) // for nested post body?
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false}
+}))
 app.use(tasksRouter)
+
 
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
 
@@ -55,6 +64,11 @@ app.get('/myTasks', (req, res) => {
 })
 
 app.get('/createTask', (req, res) => {
+    let sessionVariable = req.session.valid
+    if (sessionVariable === true) {
+        console.log(sessionVariable);
+        req.session.valid = null
+    }
     res.send(createTaskPage)
 })
 
