@@ -1,5 +1,5 @@
 ;(async function getTask() {
-    const queryString = window.location.href.substr(28);
+    const queryString = window.location.href.substr(28)
     try {
         const response = await fetch(`/api/tasks/${queryString}`)
         const body = await response.json()
@@ -11,10 +11,10 @@
 
         tableRow.append($('<td></td>').text(task.title))
         tableRow.append($('<td></td>').text(task.description))
-        tableRow.append($('<td></td>').text(task.location))
-        tableRow.append($('<td></td>').text(task.date))
-        tableRow.append($('<td></td>').text(task.time))
-        tableRow.append($('<td></td>').text(task.reward))
+        tableRow.append($('<td></td>').text(task.location ? task.location : 'No location'))
+        tableRow.append($('<td></td>').text(task.date ? task.date : 'No Date'))
+        tableRow.append($('<td></td>').text(task.time ? task.time : 'No time'))
+        tableRow.append($('<td></td>').text(task.reward ? task.reward : 'No reward'))
         tableRow.append(
             $('<td></td>').append(
                 $('<a></a>')

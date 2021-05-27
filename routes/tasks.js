@@ -30,12 +30,11 @@ router.get('/api/tasks/:id', async (req, res) => {
 router.post('/api/tasks', async (req, res) => {
     const doc = req.body
     let success = await tasksRepo.createOne(doc)
-    if (success) {
-        console.log('task created')
+    if (success !== true) {
         return res.send({ success })
     }
-    console.log('No task created')
-    res.send({ error: 'No tasks created' })
+
+    res.send({ success })
 })
 
 router.patch('/api/tasks/:id', async (req, res) => {

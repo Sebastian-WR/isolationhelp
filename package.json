@@ -23,6 +23,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
+    "joi": "^17.4.0",
     "mongodb": "^3.6.6",
     "node-fetch": "^2.6.1"
   }
