@@ -1,38 +1,21 @@
 <div id="socket-holder">
-    <h1>Chat</h1>
-    <!-- <input name= "user" placeholder="User Name">
-    <input name= "chat" placeholder="Message"> -->
-    <div id="container">
-        <form>
-            <div>
-                <input id="user" placeholder="User Name" />
-                <input id="chat" placeholder="Message" />
-            </div>
-            <div>
-                <button>Send</button>
-            </div>
-        </form>
-    </div>
+    <input id="color-picker" type="color" />
+    <button onclick="sendColor()">Send color</button>
+
+    <div id="choosen-color"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io()
-        const form = document.querySelector('form')
-        form.addEventListener('submit', function (e) {
-            e.preventDefault()
-            const inputU = document.querySelector('#user')
-            const user = inputU.value
-            const inputC = document.querySelector('#chat')
-            const chat = inputC.value
-            socket.emit('message', { user: user, chat: chat })
-            inputC.value = ''
-        })
 
-        socket.on('response', (data) => {
-            console.log(data)
+        function sendColor() {
+            const color = $('#color-picker').val()
+            socket.emit('colorChanged', { color })
+        }
 
-            const messageP = document.createElement('p')
-            messageP.innerText = data.user + ': ' + data.chat
-            container.appendChild(messageP)
-            //     // document.body.style.backgroundColor = data.color;
+        socket.on('changeBackgroundToThisColor', (data) => {
+            $('#sidenav').css('background-color', data.color)
+            $('#choosen-color').text(data.color)
         })
     </script>
 </div>
