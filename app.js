@@ -5,7 +5,6 @@ const fetch = require('node-fetch')
 const fs = require('fs')
 const express = require('express')
 const tasksRouter = require('./routes/tasks').router
-const chatRouter = require('./routes/chat').router
 
 /*---server setup---*/
 const app = express()
@@ -18,7 +17,6 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true })) // for nested post body?
 app.use(tasksRouter)
-app.use('/api/chats', chatRouter)
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
