@@ -78,4 +78,10 @@ router.post('/signin', async (req, res) => {
     res.status(204).send({ message: 'Password incorrect' })
 })
 
+// TODO handle validation
+router.get('/signout', (req, res) => {
+    req.session.destroy()
+    res.redirect('/')
+})
+
 module.exports = { router }
