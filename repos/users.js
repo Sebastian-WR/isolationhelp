@@ -1,16 +1,34 @@
-const client = require('.././client')
-const userSchema = require('../models/users')
+const client = require('../util/client')
 const colName = 'users'
+const ObjectId = require('mongodb').ObjectId
+const Joi = require('joi')
+
+// TODO:
+// Update validation constraints
+// Update error handeling
+
+const schema = Joi.object({
+    _id: Joi.string(),
+    name: Joi.string().required(),
+    password: Joi.string().required(),
+    email: Joi.string().required(),
+    validated: Joi.boolean().required(),
+    token: Joi.string(),
+})
 
 const readOne = async (field) => {
-    let task = {}
+    let user
     try {
         const db = await client.getDB()
-        task = await db.collection(colName).findOne(field)
+        if (field.id) {
+            user = await db.collection(colName).findOne(ObjectId(field))
+        } else {
+            user = await db.collection(colName).findOne(field)
+        }
     } catch (error) {
         console.log(error)
     }
-    return task
+    return user
 }
 
 const readOneOrMore = async (fields) => {
@@ -24,18 +42,18 @@ const readOneOrMore = async (fields) => {
     return users
 }
 const createOne = async (doc) => {
-    let success = false
+    let result = false
     try {
-        const value = await userSchema.validateAsync(doc)
-        if (!value) return success
-        
+        const value = await schema.validateAsync(doc)
+        if (!value) return result
+
         const db = await client.getDB()
-        const result = await db.collection(colName).insertOne(doc)
-        result.insertedCount === 1 ? (success = true) : (success = false)
+        const response = await db.collection(colName).insertOne(doc)
+        response.insertedCount === 1 ? (result = true) : (result = false)
     } catch (error) {
         console.log(error)
     }
-    return success
+    return result
 }
 const updateOne = async (id, fields) => {
     const filter = { _id: id }

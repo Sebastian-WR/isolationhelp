@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient
-const uri = require('../config').DB_URI
+const uri = require('../config').dbUri
 const dbName = 'isolationhelp'
+
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -10,9 +11,8 @@ const client = new MongoClient(uri, {
 async function connect() {
     try {
         await client.connect()
-        console.log('mongo connected')
+        console.log('Database connection established')
     } catch (error) {
-        console.log('mongo not connect')
         throw new Error(`Can't connect`)
     }
 }
@@ -24,6 +24,23 @@ const getDB = async () => {
     return client.db(dbName)
 }
 
+const getClient = async () => {
+    if (!client.isConnected()) {
+        await connect()
+    }
+    return client
+}
+
+async function close() {
+    if (client.isConnected()) {
+        await client.close()
+        console.log('Database connection ended')
+    }
+}
+
 module.exports = {
     getDB,
+    dbName,
+    getClient,
+    close,
 }
