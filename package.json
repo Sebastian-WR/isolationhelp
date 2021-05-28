@@ -1,32 +1,31 @@
 {
-  "name": "isolationhelp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CeciNB/isolationhelp.git"
-  },
-  "keywords": [],
-  "author": "CeciNB",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/CeciNB/isolationhelp/issues"
-  },
-  "homepage": "https://github.com/CeciNB/isolationhelp#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^9.0.2",
-    "express": "^4.17.1",
-    "express-validator": "^6.11.1",
-    "joi": "^17.4.0",
-    "mongodb": "^3.6.6",
-    "node-fetch": "^2.6.1",
-    "socket.io": "^4.1.2"
-  }
+    "name": "isolationhelp",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CeciNB/isolationhelp.git"
+    },
+    "keywords": [],
+    "author": "CeciNB",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CeciNB/isolationhelp/issues"
+    },
+    "homepage": "https://github.com/CeciNB/isolationhelp#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^9.0.2",
+        "express": "^4.17.1",
+        "joi": "^17.4.0",
+        "mongodb": "^3.6.6",
+        "node-fetch": "^2.6.1",
+        "socket.io": "^4.1.2"
+    }
 }
