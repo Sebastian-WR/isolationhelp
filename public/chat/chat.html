@@ -1,21 +1,32 @@
-<div id="socket-holder">
-    <input id="color-picker" type="color" />
-    <button onclick="sendColor()">Send color</button>
 
-    <div id="choosen-color"></div>
+<div>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="chat-input" autocomplete="off" />
+        <button>Send</button>
+    </form>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io()
+        var socket = io()
 
-        function sendColor() {
-            const color = $('#color-picker').val()
-            socket.emit('colorChanged', { color })
-        }
+        var messagelist = document.getElementById('messages')
+        var form = document.getElementById('form')
+        var chatmsg = document.getElementById('chat-input')
 
-        socket.on('changeBackgroundToThisColor', (data) => {
-            $('#sidenav').css('background-color', data.color)
-            $('#choosen-color').text(data.color)
+        form.addEventListener('submit', function (e) {
+            e.preventDefault()
+            if (chatmsg.value) {
+                socket.emit('chat message', chatmsg.value)
+                chatmsg.value = ''
+            }
+        })
+
+        socket.on('chat message', function (msg) {
+            var message = document.createElement('li')
+            message.textContent = msg
+            messagelist.appendChild(message)
+            window.scrollTo(0, document.body.scrollHeight)
         })
     </script>
 </div>

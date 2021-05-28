@@ -5,18 +5,20 @@ const fetch = require('node-fetch')
 const fs = require('fs')
 const express = require('express')
 const tasksRouter = require('./routes/tasks').router
+const {addUser, getUser, deleteUser, getUsers} = require('./public/chat/users')
 
 /*---server setup---*/
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
-app.io = io
+const cors = require('cors')
 
 /*---middelwares---*/
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true })) // for nested post body?
 app.use(tasksRouter)
+app.use(cors())
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
@@ -84,23 +86,42 @@ server.listen(process.env.PORT || 3000, (error) => {
 })
 
 io.on('connection', (socket) => {
-    // console.log("A socket connected with id", socket.id);
+    console.log('User Connected')
 
-    socket.on('colorChanged', (data) => {
-        // changes the color for ALL the sockets in the io namespace
-        io.emit('changeBackgroundToThisColor', { color: data.color })
-
-        // changes the color ONLY for the socket that made the change
-        // socket.emit("changeBackgroundToThisColor", data);
-
-        // changes the color for ALL the sockets EXCEPT itself
-        // socket.broadcast.emit("changeBackgroundToThisColor", data);
+    socket.on('chat message', msg => {
+        io.emit('chat message', msg)
     })
 
     socket.on('disconnect', () => {
-        console.log('A socket disconnect')
+        console.log('A User Disconnected')
     })
 })
+
+// io.on('connection', (socket) => {
+//     socket.on('login', ({ name, room }, callback) => {
+//         console.log("A socket connected with id", socket.id);
+//         const { user, error } = addUser(socket.id, name, room)
+//         if (error) return callback(error)
+//         socket.join(user.room)
+//         socket.in(room).emit('notification', { title: 'Someone\'s here', description: `${user.name} just entered the room` })
+//         io.in(room).emit('users', getUsers(room))
+//         callback()
+//     })
+
+//     socket.on('sendMessage', message => {
+//         const user = getUser(socket.id)
+//         io.in(user.room).emit('message', { user: user.name, text: message });
+//     })
+
+//     socket.on("disconnect", () => {
+//         console.log("User disconnected");
+//         const user = deleteUser(socket.id)
+//         if (user) {
+//             io.in(user.room).emit('notification', { title: 'Someone just left', description: `${user.name} just left the room` })
+//             io.in(user.room).emit('users', getUsers(user.room))
+//         }
+//     })
+// })
 
 server.on('close', () => {
     client.close()
