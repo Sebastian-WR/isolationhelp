@@ -22,11 +22,13 @@ app.use(cors())
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
+
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
 const loginHtml = fs.readFileSync(__dirname + '/public/login/login.html', 'utf-8')
 const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
 const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
+const oneTaskHtml = fs.readFileSync(__dirname + '/public/tasks/oneTask.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
@@ -36,6 +38,7 @@ const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
 const myTasksPage = baseTemplate.replace('{{BODY}}', myTasksHtml)
 const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
 const tasksPage = baseTemplate.replace('{{BODY}}', taskHtml)
+const oneTaskPage = baseTemplate.replace('{{BODY}}', oneTaskHtml)
 const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 const chatPage = baseTemplate.replace('{{BODY}}', chatHtml)
 
@@ -57,7 +60,7 @@ app.get('/tasks', (req, res) => {
 })
 
 app.get('/tasks/:id', (req, res) => {
-    res.send(tasksPage)
+    res.send(oneTaskPage)
 })
 
 app.get('/tasks/new', (req, res) => {
