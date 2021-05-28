@@ -1,8 +1,13 @@
 const config = require('./config')
 const fetch = require('node-fetch')
+const client = require('./util/client')
 const helmet = require('helmet')
+const rateLimit = require('express-rate-limit')
 const express = require('express')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 const fs = require('fs')
+
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
 
@@ -10,7 +15,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.static('public'))
-//app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -24,6 +29,35 @@ app.use(
         },
     }),
 )
+app.use(
+    session({
+        secret: config.auth.secret,
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({
+            clientPromise: client.getClient(),
+            dbName: client.dbName,
+            collectionName: 'sessions',
+        }),
+        cookie: {
+            maxAge: parseInt(config.auth.expire),
+        },
+    }),
+)
+
+app.use(
+    rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 100,
+    }),
+)
+app.use(
+    '/auth',
+    rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 10,
+    }),
+)
 
 app.use('/api/tasks', tasksRouter)
 app.use('/api/auth', authRouter)
@@ -35,7 +69,7 @@ const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 
 const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
-const registerHtml = fs.readFileSync(__dirname + '/public/register/register.html', 'utf-8')
+const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 
 const testPage = baseTemplate.replace('{{BODY}}', testHtml)
 const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
@@ -44,12 +78,17 @@ const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
 const tasksPage = baseTemplate.replace('{{BODY}}', taskHtml)
 const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 
+app.get('/', (req, res, next) => {
+    if (!req.session.isAuth) return res.redirect('/auth')
+    next()
+})
+
 app.get('/', (req, res) => {
     res.send(testPage)
 })
 
-app.get('/register', (req, res) => {
-    res.send(registerHtml)
+app.get('/auth', (req, res) => {
+    res.send(authHtml)
 })
 
 app.get('/login', (req, res) => {
