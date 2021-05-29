@@ -1,31 +1,62 @@
 <div id="mytasks-container">
-    <form action="/createTask" method="POST" id="task-form" id="login-form">
+    <form action="/api/tasks" method="POST" id="task-form" id="login-form" validation>
         <div>
-            <label for="task-headline">Headline</label> <br>
-            <input type="text" id="task-headline" name="task-headline" placeholder="Ex. Mowing of lawn">
+            <label for="title">Headline</label> <br />
+            <input
+                type="text"
+                id="task-headline"
+                name="title"
+                placeholder="Ex. Mowing of lawn"
+                required
+            />
         </div>
         <div>
-            <label for="task-description">Description</label> <br>
-            <input type="text" id="task-description" name="task-description" placeholder="Ex. Mowing the front lawn at my house, 300 square meters.">
+            <label for="category">Category</label> <br />
+            <input
+                type="text"
+                id="task-headline"
+                name="category"
+                placeholder="Ex. Hard work, light work? dunno what cecil means"
+            />
         </div>
         <div>
-            <label for="location">Location</label> <br>
-            <input type="text" id="location" name="location" placeholder="Ex. Mystreet 123, Copenhagen 2100">
+            <label for="description">Description</label> <br />
+            <input
+                type="text"
+                id="task-description"
+                name="description"
+                placeholder="Ex. Mowing the front lawn at my house, 300 square meters."
+                required
+            />
         </div>
         <div>
-            <label for="date">Date</label> <br>
-            <input type="date" id="date" name="date">
+            <label for="location">Location</label> <br />
+            <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="Ex. Mystreet 123, Copenhagen 2100"
+            />
         </div>
         <div>
-            <label for="time">Time</label> <br>
-            <input type="time" id="timee" name="time">
+            <label for="date">Date</label> <br />
+            <input type="date" id="date" name="date" />
         </div>
         <div>
-            <label for="reward">Reward</label> <br>
-            <input type="text" id="reward" name="reward" placeholder="Ex. 150kr, Newly bakes cookies, a hug">
+            <label for="time">Time</label> <br />
+            <input type="time" id="timee" name="time" />
         </div>
         <div>
-            <input type="submit" value="Submit Task">
+            <label for="reward">Reward</label> <br />
+            <input
+                type="text"
+                id="reward"
+                name="reward"
+                placeholder="Ex. 150kr, Newly bakes cookies, a hug"
+            />
+        </div>
+        <div>
+            <input type="submit" value="Submit Task" />
         </div>
     </form>
 </div>

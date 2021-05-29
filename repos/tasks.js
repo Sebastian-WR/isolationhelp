@@ -1,11 +1,25 @@
 const client = require('../util/client')
+const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
-const readOne = async (field) => {
+const Joi = require('joi')
+
+const schema = Joi.object({
+    _id: Joi.string(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    category: Joi.string().allow(''),
+    reward: Joi.string().allow(''),
+    location: Joi.string().allow(''),
+    date: Joi.date().allow(''),
+    time: Joi.string().allow('').pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')),
+})
+
+const readOne = async (id) => {
     let task = {}
     try {
         const db = await client.getDB()
-        task = await db.collection(colName).findOne(field)
+        task = await db.collection(colName).findOne(ObjectId(id))
     } catch (error) {
         console.log(error)
     }
@@ -23,13 +37,19 @@ const readOneOrMore = async (fields) => {
     return tasks
 }
 const createOne = async (doc) => {
-    let success
+    let success = false
     try {
+        const value = await schema.validateAsync(doc)
         const db = await client.getDB()
         const result = await db.collection(colName).insertOne(doc)
-        result.insertedCount === 1 ? (success = true) : (success = false)
+        if (result.insertedCount === 1) {
+            success = true
+        } else {
+            success = false
+        }
     } catch (error) {
-        console.log(error)
+        return error.details[0].message
+        //console.log(error.details[0].message)
     }
     return success
 }

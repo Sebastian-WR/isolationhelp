@@ -34,12 +34,11 @@ router.post('/', async (req, res) => {
     if (req.body.text) doc.text = req.body.text
 
     let success = await tasksRepo.createOne(doc)
-    if (success) {
-        console.log('task created')
+    if (success !== true) {
         return res.send({ success })
     }
-    console.log('No task created')
-    res.send({ error: 'No tasks created' })
+
+    res.send({ success })
 })
 
 router.patch('/:id', async (req, res) => {
