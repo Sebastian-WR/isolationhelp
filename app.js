@@ -94,14 +94,25 @@ const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
 /*diy template lang*/
-const testPage = baseTemplate.replace('{{BODY}}', testHtml)
+const testPage = baseTemplate
+    .replace('{{BODY}}', testHtml)
+    .replace('"navLink" href="/"', '"navLinkActive" href="/"')
 const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
-const myTasksPage = baseTemplate.replace('{{BODY}}', myTasksHtml)
+const myTasksPage = baseTemplate
+    .replace('{{BODY}}', myTasksHtml)
+    .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
 const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
-const tasksPage = baseTemplate.replace('{{BODY}}', taskHtml)
+const tasksPage = baseTemplate
+    .replace('{{BODY}}', taskHtml)
+    .replace('"navLink" href="/tasks"', '"navLinkActive" href="/tasks"')
 const oneTaskPage = baseTemplate.replace('{{BODY}}', oneTaskHtml)
 const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
-const chatPage = baseTemplate.replace('{{BODY}}', chatHtml)
+const chatPage = baseTemplate
+    .replace('{{BODY}}', chatHtml)
+    .replace('"navLink" href="/chats"', '"navLinkActive" href="/chats"')
+const settingsPage = baseTemplate
+    .replace('{{BODY}}', testHtml)
+    .replace('"navLink" href="/settings"', '"navLinkActive" href="/settings"')
 
 /*-----routes-----*/
 app.get('/', (req, res, next) => {
@@ -146,7 +157,7 @@ app.get('/createTask', (req, res) => {
 })
 
 app.get('/settings', (req, res) => {
-    res.send(testPage)
+    res.send(settingsPage)
 })
 
 app.get('/*', (req, res) => {
