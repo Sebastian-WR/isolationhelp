@@ -64,7 +64,8 @@ $('#submit-sign-in').click(async () => {
 
     const body = await result.json()
     if (body.success) {
-        window.location.href = process.env.HOST
+        console.log()
+        window.location.href = '/'
     } else {
         console.log(body.message)
     }
