@@ -64,7 +64,7 @@ $('#submit-sign-in').click(async () => {
 
     const body = await result.json()
     if (body.success) {
-        window.location.href = 'http://localhost:3000'
+        window.location.href = process.env.HOST
     } else {
         console.log(body.message)
     }
