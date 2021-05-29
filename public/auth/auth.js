@@ -12,6 +12,12 @@ $('#submit-sign-up').click(async () => {
     const email = $('#email-sign-up').val()
     const password = $('#password-sign-up').val()
 
+    if (name === '' || email === '' || password === '') {
+        const tooltip = $('<p></p>').text(body.success)
+        container.append(tooltip)
+        return
+    }
+
     const result = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {

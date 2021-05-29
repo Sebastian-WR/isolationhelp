@@ -21,8 +21,18 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                scriptSrc: ["'self'", 'https://ajax.googleapis.com'],
-                styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com'],
+                scriptSrc: [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://ajax.googleapis.com',
+                    'https://cdn.jsdelivr.net/',
+                ],
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://cdnjs.cloudflare.com',
+                    'https://cdn.jsdelivr.net/',
+                ],
                 fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
                 imgSrc: ["'self'", 'data:'],
             },
