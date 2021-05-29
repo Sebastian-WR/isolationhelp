@@ -1,6 +1,13 @@
 const dotenv = require('dotenv').config()
-const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017'
 
 module.exports = {
-    DB_URI,
+    dbUri: process.env.DB_URI || 'mongodb://localhost:27017',
+    mail: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+    },
+    auth: {
+        secret: process.env.AUTH_SECRET,
+        expire: process.env.AUTH_EXPIRE,
+    },
 }

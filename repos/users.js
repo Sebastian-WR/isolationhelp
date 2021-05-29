@@ -1,57 +1,59 @@
 const client = require('../util/client')
+const colName = 'users'
 const ObjectId = require('mongodb').ObjectId
-const colName = 'tasks'
-
 const Joi = require('joi')
+
+// TODO:
+// Update validation constraints
+// Update error handeling
 
 const schema = Joi.object({
     _id: Joi.string(),
-    title: Joi.string().required(),
-    description: Joi.string().required(),
-    category: Joi.string().allow(''),
-    reward: Joi.string().allow(''),
-    location: Joi.string().allow(''),
-    date: Joi.date().allow(''),
-    time: Joi.string().allow('').pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')),
+    name: Joi.string().required(),
+    password: Joi.string().required(),
+    email: Joi.string().required(),
+    validated: Joi.boolean().required(),
+    token: Joi.string(),
 })
 
-const readOne = async (id) => {
-    let task = {}
+const readOne = async (field) => {
+    let user
     try {
         const db = await client.getDB()
-        task = await db.collection(colName).findOne(ObjectId(id))
+        if (field.id) {
+            user = await db.collection(colName).findOne(ObjectId(field))
+        } else {
+            user = await db.collection(colName).findOne(field)
+        }
     } catch (error) {
         console.log(error)
     }
-    return task
+    return user
 }
 
 const readOneOrMore = async (fields) => {
-    let tasks = []
+    let users = []
     try {
         const db = await client.getDB()
-        tasks = await db.collection(colName).find(fields).toArray()
+        users = await db.collection(colName).find(fields).toArray()
     } catch (error) {
         console.log(error)
     }
-    return tasks
+    return users
 }
 const createOne = async (doc) => {
-    let success = false
+    let result = false
     try {
         const value = await schema.validateAsync(doc)
+        if (!value) return result
+
         const db = await client.getDB()
-        const result = await db.collection(colName).insertOne(doc)
-        if (result.insertedCount === 1) {
-            success = true
-        } else {
-            success = false
-        }
+        const response = await db.collection(colName).insertOne(doc)
+        response.insertedCount === 1 ? (result = true) : (result = false)
     } catch (error) {
-        return error.details[0].message
-        //console.log(error.details[0].message)
+        console.log(error)
     }
-    return success
+    return result
 }
 const updateOne = async (id, fields) => {
     const filter = { _id: id }

@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
-router.get('/api/tasks', async (req, res) => {
+// TODO: Server side data validation Mongoose or Joi
+router.get('/', async (req, res) => {
     let tasks
     if (req.query) {
         tasks = await tasksRepo.readOneOrMore(req.query)
@@ -16,7 +17,7 @@ router.get('/api/tasks', async (req, res) => {
     res.send({ error: 'No tasks found' })
 })
 
-router.get('/api/tasks/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const id = req.params.id
     let task = await tasksRepo.readOne(id)
     if (task) {
@@ -27,8 +28,11 @@ router.get('/api/tasks/:id', async (req, res) => {
     res.send({ error: 'task missing' })
 })
 
-router.post('/api/tasks', async (req, res) => {
-    const doc = req.body
+router.post('/', async (req, res) => {
+    const doc = {}
+    if (req.body.title) doc.title = req.body.title
+    if (req.body.text) doc.text = req.body.text
+
     let success = await tasksRepo.createOne(doc)
     if (success !== true) {
         return res.send({ success })
@@ -37,7 +41,7 @@ router.post('/api/tasks', async (req, res) => {
     res.send({ success })
 })
 
-router.patch('/api/tasks/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
     const id = req.params.id
     const fields = req.body
     let success = await tasksRepo.updateOne(id, fields)
@@ -49,7 +53,7 @@ router.patch('/api/tasks/:id', async (req, res) => {
     res.send({ error: 'No tasks found' })
 })
 
-router.delete('/api/tasks/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const id = req.params.id
     let success = await tasksRepo.deleteOne(id)
     if (success) {

@@ -1,11 +1,17 @@
 /*----imports----*/
 const config = require('./config')
-const client = require('./db/client')
 const fetch = require('node-fetch')
-const fs = require('fs')
+const client = require('./util/client')
+const helmet = require('helmet')
+const rateLimit = require('express-rate-limit')
 const express = require('express')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
+const fs = require('fs')
+
 const tasksRouter = require('./routes/tasks').router
-const {addUser, getUser, deleteUser, getUsers} = require('./public/chat/users')
+const authRouter = require('./routes/auth').router
+const { addUser, getUser, deleteUser, getUsers } = require('./public/chat/users')
 
 /*---server setup---*/
 const app = express()
@@ -14,11 +20,65 @@ const io = require('socket.io')(server)
 const cors = require('cors')
 
 /*---middelwares---*/
+app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
-app.use(express.urlencoded({ extended: true })) // for nested post body?
-app.use(tasksRouter)
-app.use(cors())
+app.use(express.urlencoded({ extended: false }))
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://ajax.googleapis.com',
+                    'https://cdn.jsdelivr.net/',
+                ],
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'",
+                    'https://cdnjs.cloudflare.com',
+                    'https://cdn.jsdelivr.net/',
+                ],
+                fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
+                imgSrc: ["'self'", 'data:'],
+            },
+        },
+    }),
+)
+app.use(
+    session({
+        secret: config.auth.secret,
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({
+            clientPromise: client.getClient(),
+            dbName: client.dbName,
+            collectionName: 'sessions',
+        }),
+        cookie: {
+            maxAge: parseInt(config.auth.expire),
+        },
+    }),
+)
+
+app.use(
+    rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 100,
+    }),
+)
+app.use(
+    '/auth',
+    rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 10,
+    }),
+)
+
+app.use('/api/tasks', tasksRouter)
+app.use('/api/auth', authRouter)
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
@@ -30,6 +90,7 @@ const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.h
 const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 const oneTaskHtml = fs.readFileSync(__dirname + '/public/tasks/oneTask.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
+const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
 /*diy template lang*/
@@ -43,8 +104,17 @@ const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 const chatPage = baseTemplate.replace('{{BODY}}', chatHtml)
 
 /*-----routes-----*/
+app.get('/', (req, res, next) => {
+    if (!req.session.isAuth) return res.redirect('/auth')
+    next()
+})
+
 app.get('/', (req, res) => {
     res.send(testPage)
+})
+
+app.get('/auth', (req, res) => {
+    res.send(authHtml)
 })
 
 app.get('/login', (req, res) => {
@@ -91,7 +161,7 @@ server.listen(process.env.PORT || 3000, (error) => {
 io.on('connection', (socket) => {
     console.log('User Connected')
 
-    socket.on('chat message', msg => {
+    socket.on('chat message', (msg) => {
         io.emit('chat message', msg)
     })
 
