@@ -84,7 +84,6 @@ app.use('/api/auth', authRouter)
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
 
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
-const loginHtml = fs.readFileSync(__dirname + '/public/login/login.html', 'utf-8')
 const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
 const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
@@ -97,7 +96,6 @@ const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 const testPage = baseTemplate
     .replace('{{BODY}}', testHtml)
     .replace('"navLink" href="/"', '"navLinkActive" href="/"')
-const loginPage = baseTemplate.replace('{{BODY}}', loginHtml)
 const myTasksPage = baseTemplate
     .replace('{{BODY}}', myTasksHtml)
     .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
@@ -126,10 +124,6 @@ app.get('/*', (req, res, next) => {
 
 app.get('/', (req, res) => {
     res.send(testPage)
-})
-
-app.get('/login', (req, res) => {
-    res.send(loginPage)
 })
 
 app.get('/chats', (req, res) => {

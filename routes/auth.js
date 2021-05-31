@@ -72,6 +72,7 @@ router.post('/signin', async (req, res) => {
     const result = await crypt.comparePassword(password, exsistingUser.password)
     if (result) {
         req.session.isAuth = true
+        req.session.userId = exsistingUser._id
         return res.status(201).send({ success: true })
     }
 

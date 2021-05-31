@@ -12,6 +12,8 @@ const schema = Joi.object({
     reward: Joi.string().allow(''),
     location: Joi.string().allow(''),
     date: Joi.date().allow(''),
+    createdById: Joi.string().required(),
+    takenById: Joi.string().allow(''),
     time: Joi.string().allow('').pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')),
 })
 
