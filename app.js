@@ -115,17 +115,17 @@ const settingsPage = baseTemplate
     .replace('"navLink" href="/settings"', '"navLinkActive" href="/settings"')
 
 /*-----routes-----*/
-app.get('/', (req, res, next) => {
+app.get('/auth', (req, res) => {
+    res.send(authHtml)
+})
+
+app.get('/*', (req, res, next) => {
     if (!req.session.isAuth) return res.redirect('/auth')
     next()
 })
 
 app.get('/', (req, res) => {
     res.send(testPage)
-})
-
-app.get('/auth', (req, res) => {
-    res.send(authHtml)
 })
 
 app.get('/login', (req, res) => {
