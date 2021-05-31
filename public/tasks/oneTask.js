@@ -15,17 +15,6 @@
         tableRow.append($('<td></td>').text(task.date ? task.date : 'No Date'))
         tableRow.append($('<td></td>').text(task.time ? task.time : 'No time'))
         tableRow.append($('<td></td>').text(task.reward ? task.reward : 'No reward'))
-        tableRow.append(
-            $('<td></td>').append(
-                $('<a></a>')
-                    .attr('href', `/tasks/${task._id}`)
-                    .append(
-                        $('<button></button>')
-                            .text('Edit')
-                            .attr({ type: 'button', class: 'table-btn' }),
-                    ),
-            ),
-        )
 
         tableBody.append(tableRow)
     } catch (error) {

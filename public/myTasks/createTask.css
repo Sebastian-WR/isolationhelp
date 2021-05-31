@@ -5,6 +5,15 @@
 /* prussian blue: #1D3557 */
 /* ghost white: #F7F7FF */
 
+#success {
+    font-size: xx-large; 
+    display: flex; 
+    justify-content: center; 
+    height: 300px; 
+    width: auto; 
+    text-align: center;
+}
+
 #mytasks-container {
     display: flex;
     justify-content: center;
