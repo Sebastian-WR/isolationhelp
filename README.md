@@ -69,7 +69,7 @@ $ npm run dev
 
 ## Authors
 
--   **Sebastian Wulff Rasmussen** - _Initial work_ - [Sebastian-WR](https://github.com/Sebastian-WR)
+-   **Sebastian Wulff Rasmussen** - [Sebastian-WR](https://github.com/Sebastian-WR)
 
 See also the list of [contributors](https://github.com/CeciNB/isolationhelp/contributors) who participated in this project.
 
