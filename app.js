@@ -29,12 +29,7 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                scriptSrc: [
-                    "'self'",
-                    "'unsafe-inline'",
-                    'https://ajax.googleapis.com',
-                    'https://cdn.jsdelivr.net/',
-                ],
+                scriptSrc: ["'self'", 'https://ajax.googleapis.com', 'https://cdn.jsdelivr.net/'],
                 styleSrc: [
                     "'self'",
                     "'unsafe-inline'",
