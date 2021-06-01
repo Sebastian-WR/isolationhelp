@@ -1,6 +1,16 @@
-FROM mhart/alpine-node
+# syntax=docker/dockerfile:1
+
+FROM node:14.16.0
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
+COPY . .
 
 EXPOSE 80
-WORKDIR /app
-COPY . /app
-CMD ["node", "app.js"]
+
+CMD [ "node", "app.js" ]
