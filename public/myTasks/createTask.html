@@ -1,5 +1,5 @@
 <div id="mytasks-container">
-    <form action="/api/tasks" method="POST" id="task-form" id="login-form" validation>
+    <form onsubmit="return formSubmit(this);" action="/api/tasks" method="POST" id="task-form" validation>
         <div>
             <label id="create-task" for="title">Headline</label> <br />
             <input
@@ -61,3 +61,7 @@
         </div>
     </form>
 </div>
+
+<div id="success"></div>
+
+<script src="myTasks/createTask.js"></script>

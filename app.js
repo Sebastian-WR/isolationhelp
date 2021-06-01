@@ -13,6 +13,7 @@ const fs = require('fs')
 
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
+const mytasksrouter = require('./routes/myTasks').router
 const { addUser, getUser, deleteUser, getUsers } = require('./public/chat/users')
 
 /*---server setup---*/
@@ -76,6 +77,7 @@ app.use(
 
 app.use('/api/tasks', tasksRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/mytasks', mytasksrouter)
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
