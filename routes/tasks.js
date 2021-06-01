@@ -50,6 +50,7 @@ router.post('/', async (req, res) => {
     res.send({ success })
 })
 
+//TODO: only update your own if not admin
 router.patch('/:id', async (req, res) => {
     const id = req.params.id
     const fields = req.body
@@ -62,6 +63,7 @@ router.patch('/:id', async (req, res) => {
     res.send({ error: 'No tasks found' })
 })
 
+//TODO: only deleted your own if not admin
 router.delete('/:id', async (req, res) => {
     const id = req.params.id
     let success = await tasksRepo.deleteOne(id)
