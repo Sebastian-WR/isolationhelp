@@ -1,5 +1,6 @@
 //make ths for headerRow
 //make trs with td for tableBody
+
 ;(async function getTasks() {
     try {
         const response = await fetch('/api/tasks')

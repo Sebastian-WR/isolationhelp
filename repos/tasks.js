@@ -38,6 +38,18 @@ const readOneOrMore = async (fields) => {
     }
     return tasks
 }
+
+const readNotYours = async (field) => {
+    let tasks = []
+    try {
+        const db = await client.getDB()
+        tasks = await db.collection(colName).find( {createdById: { $nin: [ field ] } } ).toArray()
+    } catch (error) {
+        console.log(error);
+    }
+    return tasks
+}
+
 const createOne = async (doc) => {
     let success = false
     try {
@@ -87,6 +99,7 @@ const deleteOne = async (field) => {
 module.exports = {
     readOne,
     readOneOrMore,
+    readNotYours,
     createOne,
     updateOne,
     deleteOne,

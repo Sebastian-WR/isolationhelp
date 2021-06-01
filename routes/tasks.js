@@ -4,11 +4,8 @@ const tasksRepo = require('../repos/tasks')
 // TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
-    if (req.query) {
-        tasks = await tasksRepo.readOneOrMore(req.query)
-    } else {
-        tasks = await tasksRepo.readOneOrMore()
-    }
+    let id = req.session.userId
+    tasks = await tasksRepo.readNotYours(id)
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })
@@ -31,14 +28,19 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     const doc = {}
     if (req.body.title) doc.title = req.body.title
-    if (req.body.text) doc.text = req.body.text
-
+    if (req.body.description) doc.description = req.body.description
+    if (req.body.category) doc.category = req.body.category
+    if (req.body.reward) doc.reward = req.body.reward
+    if (req.body.location) doc.location = req.body.location
+    if (req.body.date) doc.date = req.body.date
+    if (req.session.userId) doc.createdById = req.session.userId
+    if (req.body.time) doc.time = req.body.time
     let success = await tasksRepo.createOne(doc)
     if (success !== true) {
         return res.send({ success })
     }
 
-    res.send({ success })
+    res.redirect('/myTasks')
 })
 
 //TODO: only update your own if not admin
