@@ -10,7 +10,6 @@ const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const fs = require('fs')
-const os = require("os");
 
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
@@ -160,7 +159,7 @@ app.get('/*', (req, res) => {
 
 /* server init */
 server.listen(process.env.PORT || 3000, (error) => {
-    error ? console.log(error) : console.log('Server listening on port', os.hostname())
+    error ? console.log(error) : console.log('Server listening on port', server.address().port)
 })
 
 io.on('connection', (socket) => {
