@@ -1,3 +1,5 @@
+'use strict'
+
 /*----imports----*/
 const config = require('./config')
 const fetch = require('node-fetch')

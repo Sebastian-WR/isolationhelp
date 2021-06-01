@@ -1,6 +1,15 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
+const isAuth = (req, res, next) => {
+    if (!req.session.isAuth) {
+        console.log({ error: 'Yessir' })
+        return res.status(204).send({ error: 'Not authenticated' })
+    }
+    next()
+}
+router.use(isAuth)
+
 // TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
