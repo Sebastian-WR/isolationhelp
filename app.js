@@ -159,7 +159,7 @@ app.get('/*', (req, res) => {
 
 /* server init */
 server.listen(process.env.PORT || 3000, (error) => {
-    error ? console.log(error) : console.log('Server listening on port', server.address().port)
+    error ? console.log(error) : console.log('Server listening on port', server.address().address)
 })
 
 io.on('connection', (socket) => {
