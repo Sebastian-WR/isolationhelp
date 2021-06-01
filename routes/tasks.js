@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
+//TODO: add logging
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
         console.log({ error: 'Yessir' })
