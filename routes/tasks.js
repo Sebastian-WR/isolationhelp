@@ -4,11 +4,8 @@ const tasksRepo = require('../repos/tasks')
 // TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
-    if (req.query) {
-        tasks = await tasksRepo.readOneOrMore(req.query)
-    } else {
-        tasks = await tasksRepo.readOneOrMore()
-    }
+    let id = req.session.userId
+    tasks = await tasksRepo.readNotYours(id)
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })
