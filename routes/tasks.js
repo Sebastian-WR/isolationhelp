@@ -18,12 +18,12 @@ router.get('/', async (req, res) => {
     const sort = req.query.sort
     if (sort === 'notyours') {
         tasks = await tasksRepo.readNotYours(id)
-    } else if(sort === 'mytasks'){
+    } else if (sort === 'mytasks') {
         tasks = await tasksRepo.readMyTasks(id)
     } else {
         tasks = await tasksRepo.readOneOrMore()
     }
-    
+
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })

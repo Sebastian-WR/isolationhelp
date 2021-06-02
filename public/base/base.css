@@ -7,6 +7,7 @@
 /* ghost white: #F7F7FF */
 body {
     margin: 0%;
+    padding: 0%;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #1d3557;
     overflow: hidden; /* too hide chrome scrollbar*/
@@ -30,15 +31,15 @@ main {
 }
 #sidenav {
     background-color: #1d3557;
-    padding-right: 2rem;
+    padding-left: 0rem 0.25rem;
     height: calc(100vh - 3rem);
     width: auto;
 }
 #content {
     background-color: #ff6666;
+    padding: 0rem 2rem;
     height: calc(100vh - 3rem);
     width: 100%;
-    padding: 0rem 3rem;
     overflow-y: scroll;
 }
 

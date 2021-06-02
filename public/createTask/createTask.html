@@ -1,17 +1,10 @@
 <div id="mytasks-container">
-    <form
-        id="create-task-form"
-        onsubmit="return formSubmit(this);"
-        action="/api/tasks"
-        method="POST"
-        id="task-form"
-        validation
-    >
+    <form id="create-task-form" validate>
         <div>
-            <label id="create-task" for="title">Headline</label> <br />
+            <label id="create-task" for="title">Title</label> <br />
             <input
                 type="text"
-                id="create-task"
+                id="create-task-title"
                 class="create-task-input"
                 name="title"
                 placeholder="Ex. Mowing of lawn"
@@ -22,18 +15,17 @@
             <label id="create-task" for="category">Category</label> <br />
             <input
                 type="text"
-                id="create-task"
+                id="create-task-category"
                 class="create-task-input"
                 name="category"
-                placeholder="Ex. Hard work, light work? dunno what cecil means"
+                placeholder="Will be drop down in next release"
             />
         </div>
         <div>
             <label id="create-task" for="description">Description</label> <br />
             <textarea
-                style="height: 80px"
                 type="text"
-                id="create-task"
+                id="create-task-description"
                 class="create-task-input"
                 name="description"
                 placeholder="Ex. Mowing the front lawn at my house, 300 square meters."
@@ -44,32 +36,32 @@
             <label id="create-task" for="location">Location</label> <br />
             <input
                 type="text"
-                id="create-task"
+                id="create-task-location"
                 class="create-task-input"
                 name="location"
-                placeholder="Ex. Mystreet 123, Copenhagen 2100"
+                placeholder="Copenhagen 2100 - Dropdown"
             />
         </div>
         <div>
             <label id="create-task" for="date">Date</label> <br />
-            <input type="date" id="create-task" class="create-task-input" name="date" />
+            <input type="date" id="create-task-date" class="create-task-input" name="date" />
         </div>
         <div>
             <label id="create-task" for="time">Time</label> <br />
-            <input type="time" id="create-task" class="create-task-input" name="time" />
+            <input type="time" id="create-task-time" class="create-task-input" name="time" />
         </div>
         <div>
             <label id="create-task" for="reward">Reward</label> <br />
             <input
                 type="text"
-                id="create-task"
+                id="create-task-reward"
                 class="create-task-input"
                 name="reward"
                 placeholder="Ex. 150kr, Newly bakes cookies, a hug"
             />
         </div>
         <div>
-            <input id="submit-task" class="create-task-input" type="submit" value="Submit Task" />
+            <button id="submit-task" type="button">Create task</button>
         </div>
     </form>
 </div>

@@ -31,13 +31,8 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
-                scriptSrc: ["'self'", 'https://ajax.googleapis.com', 'https://cdn.jsdelivr.net/'],
-                styleSrc: [
-                    "'self'",
-                    "'unsafe-inline'",
-                    'https://cdnjs.cloudflare.com',
-                    'https://cdn.jsdelivr.net/',
-                ],
+                scriptSrc: ["'self'", "'unsafe-inline'", 'https://ajax.googleapis.com', 'https://cdn.jsdelivr.net/'],
+                styleSrc: ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com', 'https://cdn.jsdelivr.net/'],
                 fontSrc: ["'self'", 'https://cdnjs.cloudflare.com'],
                 imgSrc: ["'self'", 'data:'],
             },
@@ -90,9 +85,7 @@ const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
 /*diy template lang*/
-const testPage = baseTemplate
-    .replace('{{BODY}}', testHtml)
-    .replace('"navLink" href="/"', '"navLinkActive" href="/"')
+const testPage = baseTemplate.replace('{{BODY}}', testHtml).replace('"navLink" href="/"', '"navLinkActive" href="/"')
 const myTasksPage = baseTemplate
     .replace('{{BODY}}', myTasksHtml)
     .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
@@ -160,43 +153,12 @@ server.listen(process.env.PORT || 3000, (error) => {
     error ? console.log(error) : console.log('Server listening on port', server.address().port)
 })
 
-io.on('connection', (socket) => {
-    console.log('User Connected')
-
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg)
-    })
-
-    socket.on('disconnect', () => {
-        console.log('A User Disconnected')
+io.on('connection', function (socket) {
+    socket.on('chat_message', function (message) {
+        // console.log('New message sent: ' + message);
+        io.emit('chat_message', message)
     })
 })
-
-// io.on('connection', (socket) => {
-//     socket.on('login', ({ name, room }, callback) => {
-//         console.log("A socket connected with id", socket.id);
-//         const { user, error } = addUser(socket.id, name, room)
-//         if (error) return callback(error)
-//         socket.join(user.room)
-//         socket.in(room).emit('notification', { title: 'Someone\'s here', description: `${user.name} just entered the room` })
-//         io.in(room).emit('users', getUsers(room))
-//         callback()
-//     })
-
-//     socket.on('sendMessage', message => {
-//         const user = getUser(socket.id)
-//         io.in(user.room).emit('message', { user: user.name, text: message });
-//     })
-
-//     socket.on("disconnect", () => {
-//         console.log("User disconnected");
-//         const user = deleteUser(socket.id)
-//         if (user) {
-//             io.in(user.room).emit('notification', { title: 'Someone just left', description: `${user.name} just left the room` })
-//             io.in(user.room).emit('users', getUsers(user.room))
-//         }
-//     })
-// })
 
 server.on('close', () => {
     client.close()
