@@ -7,8 +7,8 @@ module.exports = {
         pass: process.env.GMAIL_PASS,
     },
     auth: {
-        host: process.env.HOST,
         secret: process.env.AUTH_SECRET,
         expire: process.env.AUTH_EXPIRE,
     },
+    host: process.env.HOST,
 }

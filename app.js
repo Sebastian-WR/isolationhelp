@@ -1,7 +1,7 @@
 'use strict'
 
 /*----imports----*/
-const config = require('./config')
+const config = require('./util/config')
 const fetch = require('node-fetch')
 const client = require('./util/client')
 const helmet = require('helmet')

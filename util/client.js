@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
-const uri = require('../config').dbUri
+const uri = require('./config').dbUri
 const dbName = 'isolationhelp'
 
 const client = new MongoClient(uri, {
