@@ -1,20 +1,18 @@
 var socket = io()
 
-var messagelist = document.getElementById('messages')
-var form = document.getElementById('form')
-var chatmsg = document.getElementById('chat-input')
+var messagelist = $('#messages')
+var form = $('#chat-form')
+var chatmsg = $('#chat-input')
 
-form.addEventListener('submit', function (e) {
+form.submit((e) => {
     e.preventDefault()
-    if (chatmsg.value) {
-        socket.emit('chat_message', chatmsg.value)
-        chatmsg.value = ''
+    if (chatmsg.val()) {
+        socket.emit('chat_message', chatmsg.val())
+        chatmsg.val('')
     }
 })
 
-socket.on('chat_message', function (msg) {
-    var message = document.createElement('li')
-    message.textContent = msg
-    messagelist.appendChild(message)
-    window.scrollTo(0, document.body.scrollHeight)
+socket.on('chat_message', (msg) => {
+    var message = $('<li>').text(msg)
+    messagelist.append(message)
 })
