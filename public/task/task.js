@@ -1,4 +1,4 @@
-;(async function getTask() {
+;(async () => {
     // Will not work on other than local host
     // const queryString = window.location.href.substr(28)
     const urlParams = new URLSearchParams(window.location.search)

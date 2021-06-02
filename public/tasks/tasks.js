@@ -1,7 +1,7 @@
 //make ths for headerRow
 //make trs with td for tableBody
 
-;(async function getTasks() {
+;(async () => {
     try {
         const response = await fetch('/api/tasks/?sort=notyours')
         const body = await response.json()
