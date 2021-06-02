@@ -5,7 +5,7 @@ const confirmationTemplate = fs.readFileSync(
     path.join(__dirname + '/../public/email/confirmation.html'),
     'utf-8',
 )
-const mail = require('../config').mail
+const {mail, host} = require('./config')
 
 // TODO: Error handeling
 // - what if token does not exist
@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 })
 // TODO replase localhost with process.env.somethig
 const sendConfirmation = async (email, token) => {
-    const link = `${process.env.HOST}/auth/?authToken=${token}`
+    const link = `${host}/auth/?authToken=${token}`
     let result = false
     const confirmationHtml = confirmationTemplate.replace('{{LINK}}', link)
     const options = {

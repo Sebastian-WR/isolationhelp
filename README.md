@@ -1,9 +1,15 @@
-[![npm version](https://badge.fury.io/js/angular2-expandable-list.svg)](https://badge.fury.io/js/angular2-expandable-list)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
+[![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/CeciNB/isolationhelp/production)](https://github.com/CeciNB/isolationhelp)
+[![NPM](https://img.shields.io/npm/l/express)](https://opensource.org/licenses/MIT)
+[![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=http%3A%2F%2F3.238.27.30%2F)](http://3.238.27.30/)
 # Isolationhelp
 
 > Platform to connect people in isolation with volunteers to help with tasks
+
+## Hosted
+
+-   [Heroku](http://isolationhelp.herokuapp.com/)
+-   [AWS](http://3.238.27.30/)
+    -   checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
 
 ## Prerequisites
 
@@ -21,6 +27,7 @@ v16.16.0
 ## Table of contents
 
 -   [Project Name](#project-name)
+    -   [Hosted](#hosted)
     -   [Prerequisites](#prerequisites)
     -   [Table of contents](#table-of-contents)
     -   [Getting Started](#getting-started)
