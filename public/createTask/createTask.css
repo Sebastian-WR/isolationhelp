@@ -9,66 +9,53 @@
     font-size: xx-large;
     display: flex;
     justify-content: center;
-    height: 300px;
+    height: auto;
     width: auto;
     text-align: center;
 }
 
-#mytasks-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    margin: 1rem;
-    padding: 2rem;
-    background: #1d3557;
-}
 #create-task-form {
-    margin: 0 auto;
-    margin-top: 20px;
-}
-#create-task {
-    color: white;
-    display: inline-block;
-    margin-left: 18px;
-    padding-top: 10px;
-    font-size: 14px;
-}
-#create-task-input {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    font-size: 12px;
-    outline: none;
-}
-input[id='create-task'],
-textarea[id='create-task'] {
-    color: #777;
-    padding-left: 10px;
-    margin: 10px;
-    margin-top: 12px;
-    margin-left: 18px;
-    width: 290px;
-    height: 35px;
-    border: 1px solid #c7d0d2;
-    border-radius: 2px;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    overflow-wrap: break-word;
-}
-input[id='create-task']:hover,
-textarea[id='create-task']:hover {
-    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.7), 0 0 0 5px #ff6666;
-}
-input[id='create-task']:focus,
-textarea[id='create-task']:focus {
-    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.4), 0 0 0 5px #ff6666;
+    display: flex;
+    justify-content: flex-start;
 }
 
-input[id='submit-task'] {
+#left-create,
+#right-create {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 1rem;
+}
+.label-input {
+    display: flex;
+    flex-direction: column;
+    margin: 0.25rem;
+}
+
+.create-task-input {
+    color: #777;
+    padding: 0.5rem;
+    margin: 0.25rem;
+    width: 20rem;
+    height: auto;
+    border: 1px solid #c7d0d2;
+    border-radius: 2px;
+    overflow-wrap: break-word;
+}
+.create-task-input:hover {
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.7), 0 0 0 5px #1d3557;
+}
+.create-task-input:focus {
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, 0.4), 0 0 0 5px #1d3557;
+}
+
+#create-task-description {
+    min-height: 10rem;
+}
+
+#submit-task {
     float: right;
-    margin-right: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     width: auto;
     height: 30px;
     font-size: 14px;

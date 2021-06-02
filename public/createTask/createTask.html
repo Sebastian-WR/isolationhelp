@@ -1,67 +1,71 @@
-<div id="mytasks-container">
+<div class="main">
     <form id="create-task-form" validate>
-        <div>
-            <label id="create-task" for="title">Title</label> <br />
-            <input
-                type="text"
-                id="create-task-title"
-                class="create-task-input"
-                name="title"
-                placeholder="Ex. Mowing of lawn"
-                required
-            />
+        <div id="left-create">
+            <div class="label-input">
+                <label for="title">Title</label>
+                <input
+                    type="text"
+                    id="create-task-title"
+                    class="create-task-input"
+                    name="title"
+                    placeholder="Ex. Mowing of lawn"
+                    required
+                />
+            </div>
+            <div class="label-input">
+                <label for="category">Category</label>
+                <input
+                    type="text"
+                    id="create-task-category"
+                    class="create-task-input"
+                    name="category"
+                    placeholder="Will be drop down in next release"
+                />
+            </div>
+            <div class="label-input">
+                <label for="location">Location</label>
+                <input
+                    type="text"
+                    id="create-task-location"
+                    class="create-task-input"
+                    name="location"
+                    placeholder="Copenhagen 2100 - Dropdown"
+                />
+            </div>
+            <div class="label-input">
+                <label for="date">Date</label>
+                <input type="date" id="create-task-date" class="create-task-input" name="date" />
+            </div>
+            <div class="label-input">
+                <label for="time">Time</label>
+                <input type="time" id="create-task-time" class="create-task-input" name="time" />
+            </div>
         </div>
-        <div>
-            <label id="create-task" for="category">Category</label> <br />
-            <input
-                type="text"
-                id="create-task-category"
-                class="create-task-input"
-                name="category"
-                placeholder="Will be drop down in next release"
-            />
-        </div>
-        <div>
-            <label id="create-task" for="description">Description</label> <br />
-            <textarea
-                type="text"
-                id="create-task-description"
-                class="create-task-input"
-                name="description"
-                placeholder="Ex. Mowing the front lawn at my house, 300 square meters."
-                required
-            ></textarea>
-        </div>
-        <div>
-            <label id="create-task" for="location">Location</label> <br />
-            <input
-                type="text"
-                id="create-task-location"
-                class="create-task-input"
-                name="location"
-                placeholder="Copenhagen 2100 - Dropdown"
-            />
-        </div>
-        <div>
-            <label id="create-task" for="date">Date</label> <br />
-            <input type="date" id="create-task-date" class="create-task-input" name="date" />
-        </div>
-        <div>
-            <label id="create-task" for="time">Time</label> <br />
-            <input type="time" id="create-task-time" class="create-task-input" name="time" />
-        </div>
-        <div>
-            <label id="create-task" for="reward">Reward</label> <br />
-            <input
-                type="text"
-                id="create-task-reward"
-                class="create-task-input"
-                name="reward"
-                placeholder="Ex. 150kr, Newly bakes cookies, a hug"
-            />
-        </div>
-        <div>
-            <button id="submit-task" type="button">Create task</button>
+        <div id="right-create">
+            <div class="label-input">
+                <label for="reward">Reward</label>
+                <input
+                    type="text"
+                    id="create-task-reward"
+                    class="create-task-input"
+                    name="reward"
+                    placeholder="Ex. 150kr, Newly bakes cookies, a hug"
+                />
+            </div>
+            <div class="label-input">
+                <label for="description">Description</label>
+                <textarea
+                    type="text"
+                    id="create-task-description"
+                    class="create-task-input"
+                    name="description"
+                    placeholder="Ex. Mowing the front lawn at my house, 300 square meters."
+                    required
+                ></textarea>
+            </div>
+            <div>
+                <button id="submit-task" type="button">Create task</button>
+            </div>
         </div>
     </form>
 </div>

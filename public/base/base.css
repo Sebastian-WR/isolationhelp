@@ -29,6 +29,15 @@ main {
     justify-content: flex-start;
     align-items: flex-start;
 }
+
+.main {
+    background: #ff6666;
+    color: #1d3557;
+    margin: 2rem;
+    padding: 1rem;
+    overflow-x: hidden;
+}
+
 #sidenav {
     background-color: #1d3557;
     padding-left: 0rem 0.25rem;
