@@ -84,9 +84,9 @@ const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-
 
 const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
 const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
-const createTaskHtml = fs.readFileSync(__dirname + '/public/myTasks/createTask.html', 'utf-8')
-const taskHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
-const oneTaskHtml = fs.readFileSync(__dirname + '/public/tasks/oneTask.html', 'utf-8')
+const createTaskHtml = fs.readFileSync(__dirname + '/public/createTask/createTask.html', 'utf-8')
+const tasksHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
+const taskHtml = fs.readFileSync(__dirname + '/public/task/task.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
 const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
@@ -100,9 +100,9 @@ const myTasksPage = baseTemplate
     .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
 const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
 const tasksPage = baseTemplate
-    .replace('{{BODY}}', taskHtml)
+    .replace('{{BODY}}', tasksHtml)
     .replace('"navLink" href="/tasks"', '"navLinkActive" href="/tasks"')
-const oneTaskPage = baseTemplate.replace('{{BODY}}', oneTaskHtml)
+const taskPage = baseTemplate.replace('{{BODY}}', taskHtml)
 const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 const chatPage = baseTemplate
     .replace('{{BODY}}', chatHtml)
@@ -133,8 +133,8 @@ app.get('/tasks', (req, res) => {
     res.send(tasksPage)
 })
 
-app.get('/tasks/:id', (req, res) => {
-    res.send(oneTaskPage)
+app.get('/tasks/info', (req, res) => {
+    res.send(taskPage)
 })
 
 app.get('/tasks/new', (req, res) => {

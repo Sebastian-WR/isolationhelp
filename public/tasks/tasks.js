@@ -19,7 +19,7 @@
             tableRow.append(
                 $('<td></td>').append(
                     $('<a></a>')
-                        .attr('href', `/tasks/${task._id}`)
+                        .attr('href', `/tasks/info/?id=${task._id}`)
                         .append(
                             $('<button></button>')
                                 .text('Details')
