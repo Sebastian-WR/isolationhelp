@@ -1,5 +1,3 @@
-//make ths for headerRow
-//make trs with td for tableBody
 
 ;(async () => {
     try {

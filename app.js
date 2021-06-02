@@ -1,6 +1,3 @@
-'use strict'
-
-/*----imports----*/
 const config = require('./util/config')
 const fetch = require('node-fetch')
 const client = require('./util/client')
@@ -14,13 +11,11 @@ const fs = require('fs')
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
 
-/*---server setup---*/
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const cors = require('cors')
 
-/*---middelwares---*/
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
@@ -71,7 +66,6 @@ app.use(
 app.use('/api/tasks', tasksRouter)
 app.use('/api/auth', authRouter)
 
-/*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
 const dashboardHtml = fs.readFileSync(__dirname + '/public/dashboard/dashboard.html', 'utf-8')
 const settingsHtml = fs.readFileSync(__dirname + '/public/settings/settings.html', 'utf-8')
@@ -83,7 +77,6 @@ const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8
 const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
-/*diy template lang*/
 const dashboardPage = baseTemplate
     .replace('{{BODY}}', dashboardHtml)
     .replace('"navLink" href="/"', '"navLinkActive" href="/"')
@@ -103,7 +96,6 @@ const settingsPage = baseTemplate
     .replace('{{BODY}}', settingsHtml)
     .replace('"navLink" href="/settings"', '"navLinkActive" href="/settings"')
 
-/*-----routes-----*/
 app.get('/auth', (req, res) => {
     res.send(authHtml)
 })
@@ -149,7 +141,6 @@ app.get('/*', (req, res) => {
     res.status(404).send(errorPage)
 })
 
-/* server init */
 server.listen(process.env.PORT || 3000, (error) => {
     error ? console.log(error) : console.log('Server listening on port', server.address().port)
 })
