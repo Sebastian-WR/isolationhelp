@@ -39,11 +39,22 @@ const readOneOrMore = async (fields) => {
     return tasks
 }
 
+const readMyTasks = async (field) => {
+    let tasks = []
+    try {
+        const db = await client.getDB()
+        tasks = await db.collection(colName).find( {createdById: field } ).toArray()
+    } catch (error) {
+        console.log(error);
+    }
+    return tasks
+}
+
 const readNotYours = async (field) => {
     let tasks = []
     try {
         const db = await client.getDB()
-        tasks = await db.collection(colName).find( {createdById: { $nin: [ field ] } } ).toArray()
+        tasks = await db.collection(colName).find( {createdById: { $ne: field } } ).toArray()
     } catch (error) {
         console.log(error);
     }
@@ -99,6 +110,7 @@ const deleteOne = async (field) => {
 module.exports = {
     readOne,
     readOneOrMore,
+    readMyTasks,
     readNotYours,
     createOne,
     updateOne,

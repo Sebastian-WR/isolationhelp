@@ -1,10 +1,18 @@
 <div id="mytasks-container">
-    <form onsubmit="return formSubmit(this);" action="/api/tasks" method="POST" id="task-form" validation>
+    <form
+        id="create-task-form"
+        onsubmit="return formSubmit(this);"
+        action="/api/tasks"
+        method="POST"
+        id="task-form"
+        validation
+    >
         <div>
             <label id="create-task" for="title">Headline</label> <br />
             <input
                 type="text"
                 id="create-task"
+                class="create-task-input"
                 name="title"
                 placeholder="Ex. Mowing of lawn"
                 required
@@ -15,6 +23,7 @@
             <input
                 type="text"
                 id="create-task"
+                class="create-task-input"
                 name="category"
                 placeholder="Ex. Hard work, light work? dunno what cecil means"
             />
@@ -25,6 +34,7 @@
                 style="height: 80px"
                 type="text"
                 id="create-task"
+                class="create-task-input"
                 name="description"
                 placeholder="Ex. Mowing the front lawn at my house, 300 square meters."
                 required
@@ -35,33 +45,35 @@
             <input
                 type="text"
                 id="create-task"
+                class="create-task-input"
                 name="location"
                 placeholder="Ex. Mystreet 123, Copenhagen 2100"
             />
         </div>
         <div>
             <label id="create-task" for="date">Date</label> <br />
-            <input type="date" id="create-task" name="date" />
+            <input type="date" id="create-task" class="create-task-input" name="date" />
         </div>
         <div>
             <label id="create-task" for="time">Time</label> <br />
-            <input type="time" id="create-task" name="time" />
+            <input type="time" id="create-task" class="create-task-input" name="time" />
         </div>
         <div>
             <label id="create-task" for="reward">Reward</label> <br />
             <input
                 type="text"
                 id="create-task"
+                class="create-task-input"
                 name="reward"
                 placeholder="Ex. 150kr, Newly bakes cookies, a hug"
             />
         </div>
         <div>
-            <input id="submit-task" type="submit" value="Submit Task" />
+            <input id="submit-task" class="create-task-input" type="submit" value="Submit Task" />
         </div>
     </form>
 </div>
 
 <div id="success"></div>
 
-<script src="myTasks/createTask.js"></script>
+<script src="/createTask/createTask.js"></script>

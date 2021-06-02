@@ -3,7 +3,7 @@
 
 ;(async function getTasks() {
     try {
-        const response = await fetch('/api/tasks')
+        const response = await fetch('/api/tasks/?sort=notyours')
         const body = await response.json()
         const tasks = body.tasks
 

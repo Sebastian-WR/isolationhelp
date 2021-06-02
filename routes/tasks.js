@@ -14,8 +14,16 @@ router.use(isAuth)
 // TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
-    let id = req.session.userId
-    tasks = await tasksRepo.readNotYours(id)
+    const id = req.session.userId
+    const sort = req.query.sort
+    if (sort === 'notyours') {
+        tasks = await tasksRepo.readNotYours(id)
+    } else if(sort === 'mytasks'){
+        tasks = await tasksRepo.readMyTasks(id)
+    } else {
+        tasks = await tasksRepo.readOneOrMore()
+    }
+    
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })
