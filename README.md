@@ -7,9 +7,9 @@
 
 ## Hosted
 
--   [Heroku](http://isolationhelp.herokuapp.com/)
--   [AWS](http://3.238.27.30/)
-    -   checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
+### [Heroku](http://isolationhelp.herokuapp.com/)
+### [AWS](http://3.238.27.30/)
+> checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
 
 ## Prerequisites
 
@@ -28,6 +28,8 @@ v16.16.0
 
 -   [Project Name](#project-name)
     -   [Hosted](#hosted)
+        -   Heroku(#heroku)
+        -   AWS(#aws)
     -   [Prerequisites](#prerequisites)
     -   [Table of contents](#table-of-contents)
     -   [Getting Started](#getting-started)
