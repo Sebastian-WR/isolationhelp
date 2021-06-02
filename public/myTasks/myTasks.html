@@ -1,4 +1,11 @@
 <div class="main">
+    <div class="title-bar">
+        <h1>LIST OF TASKS YOU CREATED</h1>
+        <div class="tooltip">
+            <button class="a-ref" id="go-to-create" type="button">+</button>
+            <span class="tooltiptext">Add a task</span>
+        </div>
+    </div>
     <table class="task-table">
         <thead>
             <tr>
@@ -7,12 +14,6 @@
                 <th>Location</th>
                 <th>Date</th>
                 <th>Status</th>
-                <th>
-                    <div class="tooltip">
-                        <a class="a-ref" id="go-to-create">+</a>
-                        <span class="tooltiptext">Add a task</span>
-                    </div>
-                </th>
             </tr>
         </thead>
         <tbody id="table-body"></tbody>

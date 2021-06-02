@@ -73,8 +73,8 @@ app.use('/api/auth', authRouter)
 
 /*---file reads---*/
 const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
-
-const testHtml = fs.readFileSync(__dirname + '/public/test/test.html', 'utf-8')
+const dashboardHtml = fs.readFileSync(__dirname + '/public/dashboard/dashboard.html', 'utf-8')
+const settingsHtml = fs.readFileSync(__dirname + '/public/settings/settings.html', 'utf-8')
 const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
 const createTaskHtml = fs.readFileSync(__dirname + '/public/createTask/createTask.html', 'utf-8')
 const tasksHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
@@ -84,7 +84,9 @@ const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
 const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 
 /*diy template lang*/
-const testPage = baseTemplate.replace('{{BODY}}', testHtml).replace('"navLink" href="/"', '"navLinkActive" href="/"')
+const dashboardPage = baseTemplate
+    .replace('{{BODY}}', dashboardHtml)
+    .replace('"navLink" href="/"', '"navLinkActive" href="/"')
 const myTasksPage = baseTemplate
     .replace('{{BODY}}', myTasksHtml)
     .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
@@ -98,7 +100,7 @@ const chatPage = baseTemplate
     .replace('{{BODY}}', chatHtml)
     .replace('"navLink" href="/chats"', '"navLinkActive" href="/chats"')
 const settingsPage = baseTemplate
-    .replace('{{BODY}}', testHtml)
+    .replace('{{BODY}}', settingsHtml)
     .replace('"navLink" href="/settings"', '"navLinkActive" href="/settings"')
 
 /*-----routes-----*/
@@ -112,7 +114,7 @@ app.get('/*', (req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.send(testPage)
+    res.send(dashboardPage)
 })
 
 app.get('/chats', (req, res) => {
@@ -152,9 +154,8 @@ server.listen(process.env.PORT || 3000, (error) => {
     error ? console.log(error) : console.log('Server listening on port', server.address().port)
 })
 
-io.on('connection', function (socket) {
-    socket.on('chat_message', function (message) {
-        // console.log('New message sent: ' + message);
+io.on('connection', (socket) => {
+    socket.on('chat_message', (message) => {
         io.emit('chat_message', message)
     })
 })

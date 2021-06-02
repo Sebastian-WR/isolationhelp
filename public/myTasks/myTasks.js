@@ -17,7 +17,8 @@ $('#go-to-create').click(() => {
                 tableRow.append($('<td></td>').text(task.title))
                 tableRow.append($('<td></td>').text(task.category ? task.category : 'NO CATEGORY'))
                 tableRow.append($('<td></td>').text(task.location ? task.location : 'NO LOCATION'))
-                tableRow.append($('<td colspan="3"></td>').text(task.date ? task.date : 'NO DATE'))
+                tableRow.append($('<td></td>').text(task.date ? task.date : 'NO DATE'))
+                tableRow.append($('<td></td>').text(task.takenById ? 'TAKEN' : 'OPEN'))
 
                 tableBody.append(tableRow)
             })

@@ -44,21 +44,24 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    const task = req.body.task
+    console.log(task)
     const doc = {}
-    if (req.body.title) doc.title = req.body.title
-    if (req.body.description) doc.description = req.body.description
-    if (req.body.category) doc.category = req.body.category
-    if (req.body.reward) doc.reward = req.body.reward
-    if (req.body.location) doc.location = req.body.location
-    if (req.body.date) doc.date = req.body.date
+    if (task.title) doc.title = task.title
+    if (task.description) doc.description = task.description
+    if (task.category) doc.category = task.category
+    if (task.reward) doc.reward = task.reward
+    if (task.location) doc.location = task.location
+    if (task.date) doc.date = task.date
     if (req.session.userId) doc.createdById = req.session.userId
-    if (req.body.time) doc.time = req.body.time
+    if (task.time) doc.time = task.time
+    console.log(doc)
     let success = await tasksRepo.createOne(doc)
-    if (success !== true) {
-        return res.send({ success })
+    console.log(success)
+    if (!success) {
+        return res.send({ error: 'Error adding' })
     }
-
-    res.redirect('/myTasks')
+    res.send(success)
 })
 
 //TODO: only update your own if not admin
