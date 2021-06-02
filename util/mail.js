@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 })
 // TODO replase localhost with process.env.somethig
 const sendConfirmation = async (email, token) => {
-    const link = `${server.address().address}/auth/?authToken=${token}`
+    const link = `${process.env.HOST}/auth/?authToken=${token}`
     let result = false
     const confirmationHtml = confirmationTemplate.replace('{{LINK}}', link)
     const options = {
