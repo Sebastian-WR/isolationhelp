@@ -7,8 +7,8 @@
 
 ## Hosted
 
-> [Heroku](http://isolationhelp.herokuapp.com/) 
-> [AWS](http://3.238.27.30/) or checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
+-   [Heroku](http://isolationhelp.herokuapp.com/)
+-   [AWS](http://3.238.27.30/) or checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
 
 ## Prerequisites
 
