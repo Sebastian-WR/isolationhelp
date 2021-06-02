@@ -13,7 +13,6 @@ const fs = require('fs')
 
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
-const { addUser, getUser, deleteUser, getUsers } = require('./public/chat/users')
 
 /*---server setup---*/
 const app = express()
