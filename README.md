@@ -5,6 +5,10 @@
 
 > Platform to connect people in isolation with volunteers to help with tasks
 
+## Hosted
+
+> [Heroku](http://isolationhelp.herokuapp.com/) > [AWS](http://3.238.27.30/) or checkout [production branch](https://github.com/CeciNB/isolationhelp/tree/production#hosted) for latest IP in case of servier issue
+
 ## Prerequisites
 
 This project requires NodeJS (version 8 or later) and NPM.
@@ -21,6 +25,7 @@ v16.16.0
 ## Table of contents
 
 -   [Project Name](#project-name)
+    -   [Hosted](#hosted)
     -   [Prerequisites](#prerequisites)
     -   [Table of contents](#table-of-contents)
     -   [Getting Started](#getting-started)
