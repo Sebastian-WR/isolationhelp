@@ -3,9 +3,12 @@ const crypt = require('../util/crypt')
 const mail = require('../util/mail')
 const usersRepo = require('../repos/users')
 
-// TODO:
-// What if hash returns error?
-// What if email can't be sent?
+/* TODO:
+ ** Delete user after some time, if not validated
+ ** TOTHINK:
+ ** What if hash returns error?
+ ** What if email can't be sent?
+ */
 
 router.post('/signup', async (req, res) => {
     const name = req.body.name
@@ -73,13 +76,13 @@ router.post('/signin', async (req, res) => {
     if (result) {
         req.session.isAuth = true
         req.session.userId = exsistingUser._id
+        req.session.isAdmin = exsistingUser.admin
         return res.status(201).send({ success: true })
     }
 
     res.status(204).send({ message: 'Password incorrect' })
 })
 
-// TODO handle validation
 router.get('/signout', (req, res) => {
     req.session.destroy()
     res.redirect('/')

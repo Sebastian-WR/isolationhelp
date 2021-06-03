@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
 const Joi = require('joi')
-
+//category SHOPPING, GARDENING, CLEANING, ANIMALS
 const schema = Joi.object({
     _id: Joi.string(),
     title: Joi.string().required(),

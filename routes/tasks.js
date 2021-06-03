@@ -1,7 +1,13 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
-//TODO: add logging
+/* TODO: 
+** Add logging
+** Generic error messages without to much detail
+** TOTHINK:
+** Where should server validation be router/repo
+*/
+
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
         console.log({ error: 'Yessir' })
@@ -11,7 +17,6 @@ const isAuth = (req, res, next) => {
 }
 router.use(isAuth)
 
-// TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
     const id = req.session.userId
@@ -34,6 +39,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id
+    if (!id) res.send({ error: 'no id' })
     let task = await tasksRepo.readOne(id)
     if (task) {
         console.log('task found')
@@ -77,7 +83,7 @@ router.patch('/:id', async (req, res) => {
     res.send({ error: 'No tasks found' })
 })
 
-//TODO: only deleted your own if not admin
+//TODO: only delete your own if not admin
 router.delete('/:id', async (req, res) => {
     const id = req.params.id
     let success = await tasksRepo.deleteOne(id)
