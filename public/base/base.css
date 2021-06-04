@@ -76,10 +76,6 @@ main {
     text-decoration: none;
     color: #f7f7ff;
 }
-.logoLink:active {
-    text-decoration: none;
-    color: #f7f7ff;
-}
 
 /*Nav styling*/
 #navList {
@@ -107,10 +103,6 @@ main {
     color: #ff6666;
     text-decoration: none;
 }
-.navLink:active {
-    color: #ff6666;
-    text-decoration: none;
-}
 
 .navLinkActive:link {
     color: #ff6666;
@@ -121,10 +113,6 @@ main {
     text-decoration: none;
 }
 .navLinkActive:hover {
-    color: #ff6666;
-    text-decoration: none;
-}
-.navLinkActive:active {
     color: #ff6666;
     text-decoration: none;
 }
