@@ -50,6 +50,17 @@ const readMyTasks = async (field) => {
     return tasks
 }
 
+const readMyVolunteer = async (field) => {
+    let tasks = []
+    try {
+        const db = await client.getDB()
+        tasks = await db.collection(colName).find({ takenById: field }).toArray()
+    } catch (error) {
+        console.log(error)
+    }
+    return tasks
+}
+
 const readNotYours = async (field) => {
     let tasks = []
     try {
@@ -114,6 +125,7 @@ module.exports = {
     readOne,
     readOneOrMore,
     readMyTasks,
+    readMyVolunteer,
     readNotYours,
     createOne,
     updateOne,

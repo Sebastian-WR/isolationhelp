@@ -35,7 +35,6 @@ main {
     color: #1d3557;
     margin: 2rem;
     padding: 1rem;
-    overflow-x: hidden;
 }
 
 #sidenav {
@@ -43,9 +42,9 @@ main {
     flex-direction: column;
     justify-content: space-between;
     background-color: #1d3557;
-    padding-left: 0rem 0.25rem;
     height: calc(100vh - 3rem);
     width: auto;
+    font-size: 1.5rem;
 }
 #content {
     background-color: #ff6666;
@@ -62,11 +61,6 @@ main {
 }
 
 /* Logo styling */
-#logoDiv,
-a {
-    display: flex;
-    align-items: center;
-}
 #logo {
     padding: 0.5rem;
 }
@@ -91,10 +85,16 @@ a {
 #navList {
     list-style: none;
 }
-#navList,
-li {
-    padding: 1rem;
+.navListSuper {
+    padding: 2rem 4rem 0rem 0rem;
 }
+.navListSub {
+    padding: 0.2rem 0rem 0rem 0rem;
+}
+.subLink {
+    font-size: 1rem;
+}
+
 .navLink:link {
     color: #f7f7ff;
     text-decoration: none;

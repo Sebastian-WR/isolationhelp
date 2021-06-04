@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
-/* TODO: 
-** Add logging
-** Generic error messages without to much detail
-** TOTHINK:
-** Where should server validation be router/repo
-*/
+/* TODO:
+ ** Add logging
+ ** Generic error messages without to much detail
+ ** TOTHINK:
+ ** Where should server validation be router/repo
+ */
 
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
@@ -25,6 +25,8 @@ router.get('/', async (req, res) => {
         tasks = await tasksRepo.readNotYours(id)
     } else if (sort === 'mytasks') {
         tasks = await tasksRepo.readMyTasks(id)
+    } else if (sort === 'myvolunteering') {
+        tasks = await tasksRepo.readMyVolunteer(id)
     } else {
         tasks = await tasksRepo.readOneOrMore()
     }
