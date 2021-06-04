@@ -76,6 +76,7 @@ router.post('/signin', async (req, res) => {
     if (result) {
         req.session.isAuth = true
         req.session.userId = exsistingUser._id
+        req.session.userName = exsistingUser.name
         req.session.isAdmin = exsistingUser.admin
         return res.status(201).send({ success: true })
     }

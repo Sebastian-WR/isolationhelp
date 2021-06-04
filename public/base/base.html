@@ -41,12 +41,14 @@
         <main>
             <div id="sidenav">
                 <ul id="navList">
-                    <li><a class="navLink" href="/">Dashboard</a></li>
-                    <li><a class="navLink" href="/chats">Chats</a></li>
-                    <li><a class="navLink" href="/tasks">Tasks</a></li>
-                    <li><a class="navLink" href="/mytasks">My Tasks</a></li>
-                    <li><a class="navLink" href="/settings">Settings</a></li>
+                    <li class="navListSuper"><a class="superLink navLink" href="/">Dashboard</a></li>
+                    <li class="navListSuper"><a class="superLink navLink" href="/chats">Chats</a></li>
+                    <li class="navListSuper"><a class="superLink navLink" href="/tasks">Tasks</a></li>
+                    <li class="navListSub"><a class="subLink navLink" href="/mytasks">My Tasks</a></li>
+                    <li class="navListSub"><a class="subLink navLink" href="/myvolunteering">My Volunteering</a></li>
+                    <li class="navListSuper"><a class="superLink navLink" href="/settings">Settings</a></li>
                 </ul>
+
                 <div><a class="navLink" href="mailto:app.isolationhelp@gmail.com">Support</a></div>
             </div>
             <div id="content">{{BODY}}</div>

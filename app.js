@@ -66,35 +66,39 @@ app.use(
 app.use('/api/tasks', tasksRouter)
 app.use('/api/auth', authRouter)
 
-const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8') // why utf8?
+const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
+const baseTemplate = fs.readFileSync(__dirname + '/public/base/base.html', 'utf-8')
 const dashboardHtml = fs.readFileSync(__dirname + '/public/dashboard/dashboard.html', 'utf-8')
-const settingsHtml = fs.readFileSync(__dirname + '/public/settings/settings.html', 'utf-8')
-const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
-const createTaskHtml = fs.readFileSync(__dirname + '/public/createTask/createTask.html', 'utf-8')
+const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 const tasksHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/task/task.html', 'utf-8')
+const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
+const createTaskHtml = fs.readFileSync(__dirname + '/public/createTask/createTask.html', 'utf-8')
+const myVolunteeringHtml = fs.readFileSync(__dirname + '/public/myVolunteering/myVolunteering.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
-const authHtml = fs.readFileSync(__dirname + '/public/auth/auth.html', 'utf-8')
-const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
+const settingsHtml = fs.readFileSync(__dirname + '/public/settings/settings.html', 'utf-8')
 
 const dashboardPage = baseTemplate
     .replace('{{BODY}}', dashboardHtml)
-    .replace('"navLink" href="/"', '"navLinkActive" href="/"')
-const myTasksPage = baseTemplate
-    .replace('{{BODY}}', myTasksHtml)
-    .replace('"navLink" href="/mytasks"', '"navLinkActive" href="/mytasks"')
-const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
-const tasksPage = baseTemplate
-    .replace('{{BODY}}', tasksHtml)
-    .replace('"navLink" href="/tasks"', '"navLinkActive" href="/tasks"')
-const taskPage = baseTemplate.replace('{{BODY}}', taskHtml)
-const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
+    .replace('navLink" href="/"', 'navLinkActive" href="/"')
 const chatPage = baseTemplate
     .replace('{{BODY}}', chatHtml)
-    .replace('"navLink" href="/chats"', '"navLinkActive" href="/chats"')
+    .replace('navLink" href="/chats"', 'navLinkActive" href="/chats"')
+const tasksPage = baseTemplate
+    .replace('{{BODY}}', tasksHtml)
+    .replace('navLink" href="/tasks"', 'navLinkActive" href="/tasks"')
+const taskPage = baseTemplate.replace('{{BODY}}', taskHtml)
+const myTasksPage = baseTemplate
+    .replace('{{BODY}}', myTasksHtml)
+    .replace('navLink" href="/mytasks"', 'navLinkActive" href="/mytasks"')
+const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
+const myVolunteeringPage = baseTemplate
+    .replace('{{BODY}}', myVolunteeringHtml)
+    .replace('navLink" href="/myVolunteering"', 'navLinkActive" href="/myVolunteering"')
+const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 const settingsPage = baseTemplate
     .replace('{{BODY}}', settingsHtml)
-    .replace('"navLink" href="/settings"', '"navLinkActive" href="/settings"')
+    .replace('navLink" href="/settings"', 'navLinkActive" href="/settings"')
 
 app.get('/auth', (req, res) => {
     res.send(authHtml)
@@ -121,10 +125,6 @@ app.get('/tasks/info', (req, res) => {
     res.send(taskPage)
 })
 
-app.get('/tasks/new', (req, res) => {
-    res.send(tasksPage)
-})
-
 app.get('/myTasks', (req, res) => {
     res.send(myTasksPage)
 })
@@ -132,6 +132,11 @@ app.get('/myTasks', (req, res) => {
 app.get('/createTask', (req, res) => {
     res.send(createTaskPage)
 })
+
+app.get('/myVolunteering', (req, res) => {
+    res.send(myVolunteeringPage)
+})
+
 
 app.get('/settings', (req, res) => {
     res.send(settingsPage)
