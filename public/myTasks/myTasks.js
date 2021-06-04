@@ -1,9 +1,9 @@
 $('#go-to-create').click(() => {
     console.log(location)
-    location.href = `${location.origin}/createTask`
+    location.href = '/mytasks/new'
     console.log(location)
 })
-;(async () =>{
+;(async () => {
     try {
         const response = await fetch(`/api/tasks/?sort=mytasks`)
         const body = await response.json()

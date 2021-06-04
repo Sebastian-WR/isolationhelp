@@ -129,14 +129,13 @@ app.get('/myTasks', (req, res) => {
     res.send(myTasksPage)
 })
 
-app.get('/createTask', (req, res) => {
+app.get('/myTasks/new', (req, res) => {
     res.send(createTaskPage)
 })
 
 app.get('/myVolunteering', (req, res) => {
     res.send(myVolunteeringPage)
 })
-
 
 app.get('/settings', (req, res) => {
     res.send(settingsPage)
