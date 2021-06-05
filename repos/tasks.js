@@ -2,8 +2,15 @@ const client = require('../util/client')
 const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
+const Category = Object.freeze({
+    SHOPPING: 'SHOPPING',
+    GARDENING: 'GARDENING',
+    CLEANING: 'CLEANING',
+    ANIMALS: 'ANIMALS',
+})
+
 const Joi = require('joi')
-//enum category SHOPPING, GARDENING, CLEANING, ANIMALS
+
 const schema = Joi.object({
     _id: Joi.string(),
     title: Joi.string().required(),
