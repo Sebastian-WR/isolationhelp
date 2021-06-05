@@ -16,10 +16,10 @@ const idParam = urlParams.get('id')
         if (task.reward) taskInfo.append($('<h1></h1>').text(`REWARD: ${task.reward}`))
         taskInfo.append($('<h1></h1>').text(`DESCRIPTION: ${task.description}`))
 
-        if (task.takenById) {
-            $('.change-status').prop('id', 'remove-task').text('Remove task')
+        if (!task.takenById) {
+            $('#remove-task').css('display', 'none')
         } else {
-            $('.change-status').prop('id', 'take-task').text('Take task')
+            $('#take-task').css('display', 'none')
         }
     } catch (error) {
         console.log(error)
@@ -48,7 +48,6 @@ $('#take-task').on('click', async () => {
 })
 
 $('#remove-task').on('click', async () => {
-    console.log('removed pressed')
     const result = await fetch(`/api/tasks/${idParam}`, {
         method: 'PATCH',
         headers: {

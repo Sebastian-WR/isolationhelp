@@ -93,7 +93,6 @@ const createOne = async (doc) => {
     return success
 }
 const removeField = async (id, fields) => {
-    onsole.log('removed repo')
     const filter = { _id: ObjectId(id) }
     const options = { upsert: false }
     const update = {
