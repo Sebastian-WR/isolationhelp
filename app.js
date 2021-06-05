@@ -94,7 +94,7 @@ const myTasksPage = baseTemplate
 const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
 const myVolunteeringPage = baseTemplate
     .replace('{{BODY}}', myVolunteeringHtml)
-    .replace('navLink" href="/myVolunteering"', 'navLinkActive" href="/myVolunteering"')
+    .replace('navLink" href="/myvolunteering"', 'navLinkActive" href="/myvolunteering"')
 const errorPage = baseTemplate.replace('{{BODY}}', errorHtml)
 const settingsPage = baseTemplate
     .replace('{{BODY}}', settingsHtml)
@@ -135,6 +135,10 @@ app.get('/myTasks/new', (req, res) => {
 
 app.get('/myVolunteering', (req, res) => {
     res.send(myVolunteeringPage)
+})
+
+app.get('/myVolunteering/info', (req, res) => {
+    res.send(taskPage)
 })
 
 app.get('/settings', (req, res) => {

@@ -13,7 +13,15 @@
                 tableRow.append($('<td></td>').text(task.category ? task.category : 'NO CATEGORY'))
                 tableRow.append($('<td></td>').text(task.location ? task.location : 'NO LOCATION'))
                 tableRow.append($('<td></td>').text(task.date ? task.date : 'NO DATE'))
-                tableRow.append($('<td></td>').text('BUTTON'))
+                tableRow.append(
+                    $('<td></td>').append(
+                        $('<a></a>')
+                            .attr('href', `/myvolunteering/info/?id=${task._id}`)
+                            .append(
+                                $('<button></button>').text('Details').attr({ type: 'button', class: 'table-btn' }),
+                            ),
+                    ),
+                )
 
                 tableBody.append(tableRow)
             })

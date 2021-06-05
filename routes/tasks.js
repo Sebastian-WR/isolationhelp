@@ -85,6 +85,13 @@ router.patch('/:id', async (req, res) => {
         }
         success = await tasksRepo.updateOne(id, field)
     }
+    if (type == 'remove') {
+        console.log('removed action')
+        field = {
+            takenById: '',
+        }
+        success = await tasksRepo.removeField(id, fields)
+    }
     if (type == 'update' && fields) {
         success = await tasksRepo.updateOne(id, fields)
     }

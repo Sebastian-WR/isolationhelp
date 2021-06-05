@@ -92,6 +92,23 @@ const createOne = async (doc) => {
     }
     return success
 }
+const removeField = async (id, fields) => {
+    onsole.log('removed repo')
+    const filter = { _id: ObjectId(id) }
+    const options = { upsert: false }
+    const update = {
+        $unset: fields,
+    }
+    let success
+    try {
+        const db = await client.getDB()
+        const result = await db.collection(colName).updateOne(filter, update, options)
+        result.matchedCount === 1 ? (success = true) : (success = false)
+    } catch (error) {
+        console.log(error)
+    }
+    return success
+}
 const updateOne = async (id, fields) => {
     const filter = { _id: ObjectId(id) }
     const options = { upsert: false }
@@ -129,5 +146,6 @@ module.exports = {
     readNotYours,
     createOne,
     updateOne,
+    removeField,
     deleteOne,
 }
