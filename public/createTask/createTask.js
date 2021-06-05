@@ -21,7 +21,7 @@ $('#submit-task').click(async () => {
     const body = await result.json()
     if (body.success) {
         $('#success').text('Success! \nYou created a new task')
-        $('window').location('href', '/')
+        $('window').location('href', '/mytasks')
     } else {
         console.log(body.message)
     }

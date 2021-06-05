@@ -72,11 +72,22 @@ router.post('/', async (req, res) => {
     res.send(success)
 })
 
-//TODO: only update your own if not admin
+//TODO: only update your own if not admin only take not yours
 router.patch('/:id', async (req, res) => {
+    let success
     const id = req.params.id
-    const fields = req.body
-    let success = await tasksRepo.updateOne(id, fields)
+    const type = req.body.type
+    const fields = req.body.type
+    const userId = req.session.userId
+    if (type == 'take' && userId) {
+        field = {
+            takenById: userId,
+        }
+        success = await tasksRepo.updateOne(id, field)
+    }
+    if (type == 'update' && fields) {
+        success = await tasksRepo.updateOne(id, fields)
+    }
     if (success) {
         console.log('task updated')
         return res.send({ success })

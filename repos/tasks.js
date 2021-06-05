@@ -67,7 +67,7 @@ const readNotYours = async (field) => {
         const db = await client.getDB()
         tasks = await db
             .collection(colName)
-            .find({ createdById: { $ne: field } })
+            .find({ createdById: { $ne: field }, takenById: { $ne: field } })
             .toArray()
     } catch (error) {
         console.log(error)
@@ -93,15 +93,15 @@ const createOne = async (doc) => {
     return success
 }
 const updateOne = async (id, fields) => {
-    const filter = { _id: id }
+    const filter = { _id: ObjectId(id) }
     const options = { upsert: false }
-    const doc = {
+    const update = {
         $set: fields,
     }
     let success
     try {
         const db = await client.getDB()
-        const result = await db.collection(colName).updateOne(filter, doc, options)
+        const result = await db.collection(colName).updateOne(filter, update, options)
         result.matchedCount === 1 ? (success = true) : (success = false)
     } catch (error) {
         console.log(error)

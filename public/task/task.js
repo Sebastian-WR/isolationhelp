@@ -1,26 +1,43 @@
+const urlParams = new URLSearchParams(window.location.search)
+const idParam = urlParams.get('id')
+
 ;(async () => {
-    // Will not work on other than local host
-    // const queryString = window.location.href.substr(28)
-    const urlParams = new URLSearchParams(window.location.search)
-    const idParam = urlParams.get('id')
     try {
         const response = await fetch(`/api/tasks/${idParam}`)
         const body = await response.json()
         const task = body.task
 
-        const tableBody = $('#table-body')
+        const tableInfo = $('#task-info')
 
-        const tableRow = $('<tr></tr>')
-
-        tableRow.append($('<td></td>').text(task.title))
-        tableRow.append($('<td></td>').text(task.description))
-        tableRow.append($('<td></td>').text(task.location ? task.location : 'No location'))
-        tableRow.append($('<td></td>').text(task.date ? task.date : 'No Date'))
-        tableRow.append($('<td></td>').text(task.time ? task.time : 'No time'))
-        tableRow.append($('<td></td>').text(task.reward ? task.reward : 'No reward'))
-
-        tableBody.append(tableRow)
+        if (task.title) tableInfo.append($('<h1></h1>').text(`TITLE: ${task.title}`))
+        if (task.location) tableInfo.append($('<h1></h1>').text(`LOCATION: ${task.location}`))
+        if (task.date) tableInfo.append($('<h1></h1>').text(`DATE: ${task.date}`))
+        if (task.time) tableInfo.append($('<h1></h1>').text(`TIME: ${task.time}`))
+        if (task.reward) tableInfo.append($('<h1></h1>').text(`REWARD: ${task.reward}`))
+        tableInfo.append($('<h1></h1>').text(`DESCRIPTION: ${task.description}`))
     } catch (error) {
         console.log(error)
     }
 })()
+
+$('#take-task').on('click', async () => {
+
+    const result = await fetch(`/api/tasks/${idParam}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: idParam,
+            type: 'take',
+        }),
+    })
+   
+    const body = await result.json()
+    if (body.success) {
+        $('#success').text('Success! \nYou voluteered')
+        window.location.href = '/tasks'
+    } else {
+        console.log(body.message)
+    }
+})

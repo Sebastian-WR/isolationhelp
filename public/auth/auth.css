@@ -16,6 +16,12 @@ body {
     height: 100vh;
 }
 
+#big-logo {
+    font-size: 3rem;
+    color: #1d3557;
+    margin: 1rem;
+}
+
 h1 {
     font-weight: bold;
     margin: 0;

@@ -1,17 +1,14 @@
 <div class="main">
-    <table class="task-table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Location</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Reward</th>
-            </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-    </table>
+    <div class="title-bar">
+        <h1 id="task-title">INFO ON TASK</h1>
+    </div>
+    <div class="two-cols">
+        <div class="col-1" id="task-info"></div>
+        <div class="col-2" id="task-action">
+            <button class="action-button" id="take-task" type="button">Take Task</button>
+            <button class="action-button" id="start-chat" type="button">Start chat</button>
+        </div>
+    </div>
 </div>
 
 <script src="/task/task.js"></script>
