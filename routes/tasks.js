@@ -61,8 +61,8 @@ router.post('/', async (req, res) => {
     if (task.reward) doc.reward = task.reward
     if (task.location) doc.location = task.location
     if (task.date) doc.date = task.date
-    if (req.session.userId) doc.createdById = req.session.userId
     if (task.time) doc.time = task.time
+    if (req.session.userId) doc.createdById = req.session.userId
     console.log(doc)
     let success = await tasksRepo.createOne(doc)
     console.log(success)
@@ -84,17 +84,16 @@ router.patch('/:id', async (req, res) => {
             takenById: userId,
         }
         success = await tasksRepo.updateOne(id, field)
-    }
-    if (type == 'remove') {
+    } else if (type == 'remove') {
         console.log('removed action')
         field = {
             takenById: '',
         }
         success = await tasksRepo.removeField(id, field)
-    }
-    if (type == 'update' && fields) {
+    } else {
         success = await tasksRepo.updateOne(id, fields)
     }
+
     if (success) {
         console.log('task updated')
         return res.send({ success })

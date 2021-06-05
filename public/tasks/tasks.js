@@ -1,4 +1,3 @@
-
 ;(async () => {
     try {
         const response = await fetch('/api/tasks/?sort=notyours')
@@ -17,7 +16,7 @@
             tableRow.append(
                 $('<td></td>').append(
                     $('<a></a>')
-                        .attr('href', `/tasks/info/?id=${task._id}`)
+                        .attr('href', `/tasks/?id=${task._id}`)
                         .append($('<button></button>').text('Details').attr({ type: 'button', class: 'table-btn' })),
                 ),
             )

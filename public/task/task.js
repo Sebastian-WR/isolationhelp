@@ -33,7 +33,6 @@ $('#take-task').on('click', async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            id: idParam,
             type: 'take',
         }),
     })
@@ -54,7 +53,6 @@ $('#remove-task').on('click', async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            id: idParam,
             type: 'remove',
         }),
     })

@@ -118,14 +118,12 @@ app.get('/chats', (req, res) => {
 })
 
 app.get('/tasks', (req, res) => {
+    if (req.query.id) return res.send(taskPage)
     res.send(tasksPage)
 })
 
-app.get('/tasks/info', (req, res) => {
-    res.send(taskPage)
-})
-
 app.get('/myTasks', (req, res) => {
+    if (req.query.id) return res.send(createTaskPage)
     res.send(myTasksPage)
 })
 
@@ -134,11 +132,8 @@ app.get('/myTasks/new', (req, res) => {
 })
 
 app.get('/myVolunteering', (req, res) => {
+    if (req.query.id) return res.send(taskPage)
     res.send(myVolunteeringPage)
-})
-
-app.get('/myVolunteering/info', (req, res) => {
-    res.send(taskPage)
 })
 
 app.get('/settings', (req, res) => {

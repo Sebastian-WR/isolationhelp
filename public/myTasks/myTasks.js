@@ -19,12 +19,22 @@ $('#go-to-create').click(() => {
                 tableRow.append($('<td></td>').text(task.location ? task.location : 'NO LOCATION'))
                 tableRow.append($('<td></td>').text(task.date ? task.date : 'NO DATE'))
                 tableRow.append($('<td></td>').text(task.takenById ? 'TAKEN' : 'OPEN'))
+                tableRow.append(
+                    $('<td></td>').append(
+                        $('<a></a>')
+                            .attr('href', `/mytasks/?id=${task._id}`)
+                            .append(
+                                $('<button></button>').text('Details').attr({ type: 'button', class: 'table-btn' }),
+                            ),
+                    ),
+                )
 
                 tableBody.append(tableRow)
             })
         } else {
             const tableRow = $('<tr></tr>')
 
+            tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))
