@@ -17,6 +17,8 @@ const idParam = urlParams.get('id')
             if (task.description) $('#create-task-description').val(task.description)
 
             $('#submit-task').css('display', 'none')
+            $('#edit-task').css('display', 'inline-block')
+            $('#delete-task').css('display', 'inline-block')
         } catch (error) {
             console.log(error)
         }
@@ -39,14 +41,14 @@ $('#submit-task').click(async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            task,
+            fields: task,
         }),
     })
 
     const body = await result.json()
     if (body.success) {
         $('#success').text('Success! \nYou created a new task')
-        $('window').location('href', '/mytasks')
+        window.location.href = '/mytasks'
     } else {
         console.log(body.message)
     }
@@ -68,14 +70,31 @@ $('#edit-task').click(async () => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            task,
+            fields: task,
         }),
     })
 
     const body = await result.json()
     if (body.success) {
-        $('#success').text('Success! \nYou created a new task')
-        $('window').location('href', '/mytasks')
+        $('#success').text('Success! \nYou editet a new task')
+        window.location.href = '/mytasks'
+    } else {
+        console.log(body.message)
+    }
+})
+
+$('#delete-task').click(async () => {
+    const result = await fetch(`/api/tasks/${idParam}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+
+    const body = await result.json()
+    if (body.success) {
+        $('#success').text('Success! \nYou deleted a new task')
+        window.location.href = '/mytasks'
     } else {
         console.log(body.message)
     }

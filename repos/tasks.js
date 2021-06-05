@@ -126,10 +126,13 @@ const updateOne = async (id, fields) => {
 }
 
 const deleteOne = async (field) => {
+    id = {
+        _id: ObjectId(field),
+    }
     let success
     try {
         const db = await client.getDB()
-        const result = await db.collection(colName).deleteOne(field)
+        const result = await db.collection(colName).deleteOne(id)
         result.deletedCount === 1 ? (success = true) : (success = false)
     } catch (error) {
         console.log(error)

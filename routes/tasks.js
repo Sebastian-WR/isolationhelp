@@ -77,7 +77,7 @@ router.patch('/:id', async (req, res) => {
     let success
     const id = req.params.id
     const type = req.body.type
-    const fields = req.body.type
+    const fields = req.body.fields
     const userId = req.session.userId
     if (type == 'take' && userId) {
         field = {
