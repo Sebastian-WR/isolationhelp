@@ -1,10 +1,7 @@
-/* imperial red: #E63946 */
-/* less harsh #ff6666 */
-/* honeydew: #F1FAEE */
-/* powder blue: #A8DADC */
-/* iceladon blue: #457B9D */
-/* prussian blue: #1D3557 */
-/* ghost white: #F7F7FF */
+/* dark: #1d3557 */
+/* middle: #6e8cb5 */
+/* light: #f7f7ff */
+
 body {
     margin: 0%;
     padding: 0%;
@@ -15,7 +12,7 @@ body {
 
 /* Container for top bar with logo and log out btn*/
 header {
-    background-color: #1d3557;
+    background-color: #6e8cb5;
     padding-left: 1rem;
     padding-right: 2rem;
     display: flex;
@@ -34,13 +31,13 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #1d3557;
+    background-color: #6e8cb5;
     height: calc(100vh - 3rem);
     width: auto;
     font-size: 1.5rem;
 }
 #content {
-    background-color: #ff6666;
+    background-color: #f7f7ff;
     padding: 0rem 2rem;
     height: calc(100vh - 3rem);
     width: 100%;
@@ -48,7 +45,7 @@ main {
 }
 
 .main {
-    background: #ff6666;
+    background: #f7f7ff;
     color: #1d3557;
     margin: 2rem;
     padding: 1rem;
@@ -65,16 +62,16 @@ main {
     padding: 0.5rem;
 }
 .logoLink:link {
-    color: #f7f7ff;
+    color: #1d3557;
     text-decoration: none;
 }
 .logoLink:visited {
-    color: #f7f7ff;
+    color: #1d3557;
     text-decoration: none;
 }
 .logoLink:hover {
     text-decoration: none;
-    color: #f7f7ff;
+    color: #1d3557;
 }
 
 /*Nav styling*/
@@ -100,19 +97,39 @@ main {
     text-decoration: none;
 }
 .navLink:hover {
-    color: #ff6666;
+    color: #1d3557;
     text-decoration: none;
 }
 
 .navLinkActive:link {
-    color: #ff6666;
+    color: #1d3557;
+    font-weight: bold;
     text-decoration: none;
 }
 .navLinkActive:visited {
-    color: #ff6666;
+    color: #1d3557;
+    font-weight: bold;
     text-decoration: none;
 }
 .navLinkActive:hover {
-    color: #ff6666;
+    color: #1d3557;
+    font-weight: bold;
     text-decoration: none;
+}
+
+.btn {
+    float: right;
+    width: 8rem;
+    height: 2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #6e8cb5;
+    border-style: none;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.table-btn {
+    width: 4rem;
+    height: 2rem;
 }

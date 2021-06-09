@@ -7,15 +7,13 @@ const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const fs = require('fs')
-
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
-
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const cors = require('cors')
-
+x=2
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
@@ -73,7 +71,7 @@ const chatHtml = fs.readFileSync(__dirname + '/public/chat/chat.html', 'utf-8')
 const tasksHtml = fs.readFileSync(__dirname + '/public/tasks/tasks.html', 'utf-8')
 const taskHtml = fs.readFileSync(__dirname + '/public/task/task.html', 'utf-8')
 const myTasksHtml = fs.readFileSync(__dirname + '/public/myTasks/myTasks.html', 'utf-8')
-const createTaskHtml = fs.readFileSync(__dirname + '/public/createTask/createTask.html', 'utf-8')
+const neweditTaskHtml = fs.readFileSync(__dirname + '/public/neweditTask/neweditTask.html', 'utf-8')
 const myVolunteeringHtml = fs.readFileSync(__dirname + '/public/myVolunteering/myVolunteering.html', 'utf-8')
 const errorHtml = fs.readFileSync(__dirname + '/public/error/error.html', 'utf-8')
 const settingsHtml = fs.readFileSync(__dirname + '/public/settings/settings.html', 'utf-8')
@@ -91,7 +89,7 @@ const taskPage = baseTemplate.replace('{{BODY}}', taskHtml)
 const myTasksPage = baseTemplate
     .replace('{{BODY}}', myTasksHtml)
     .replace('navLink" href="/mytasks"', 'navLinkActive" href="/mytasks"')
-const createTaskPage = baseTemplate.replace('{{BODY}}', createTaskHtml)
+const neweditTaskPage = baseTemplate.replace('{{BODY}}', neweditTaskHtml)
 const myVolunteeringPage = baseTemplate
     .replace('{{BODY}}', myVolunteeringHtml)
     .replace('navLink" href="/myvolunteering"', 'navLinkActive" href="/myvolunteering"')
@@ -123,12 +121,12 @@ app.get('/tasks', (req, res) => {
 })
 
 app.get('/myTasks', (req, res) => {
-    if (req.query.id) return res.send(createTaskPage)
+    if (req.query.id) return res.send(neweditTaskPage)
     res.send(myTasksPage)
 })
 
 app.get('/myTasks/new', (req, res) => {
-    res.send(createTaskPage)
+    res.send(neweditTaskPage)
 })
 
 app.get('/myVolunteering', (req, res) => {

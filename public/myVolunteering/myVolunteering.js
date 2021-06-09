@@ -18,7 +18,7 @@
                         $('<a></a>')
                             .attr('href', `/myvolunteering/?id=${task._id}`)
                             .append(
-                                $('<button></button>').text('Details').attr({ type: 'button', class: 'table-btn' }),
+                                $('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' }),
                             ),
                     ),
                 )

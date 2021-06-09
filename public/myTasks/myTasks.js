@@ -24,7 +24,7 @@ $('#go-to-create').click(() => {
                         $('<a></a>')
                             .attr('href', `/mytasks/?id=${task._id}`)
                             .append(
-                                $('<button></button>').text('Details').attr({ type: 'button', class: 'table-btn' }),
+                                $('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' }),
                             ),
                     ),
                 )

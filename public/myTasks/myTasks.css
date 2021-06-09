@@ -1,35 +1,26 @@
-/* imperial red: #E63946 */
-/* honeydew: #F1FAEE */
-/* powder blue: #A8DADC */
-/* iceladon blue: #457B9D */
-/* prussian blue: #1D3557 */
-/* ghost white: #F7F7FF */
+/* dark: #1d3557 */
+/* middle: #6e8cb5 */
+/* light: #f7f7ff */
 
 .a-ref {
     font-size: x-large;
-    margin: 0 1rem; 
+    width: 2rem;
+    height: 2rem;
 }
 .a-ref:hover {
     cursor: pointer;
 }
 .tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black;
+    display: flex;
 }
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
-    background-color: #37979b;
-    color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
+    border-radius: 2rem;
+    padding: 0.5rem;
+    align-self: end;
+    justify-self: start;
 }
 
 .tooltip:hover .tooltiptext {
