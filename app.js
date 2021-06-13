@@ -1,3 +1,4 @@
+'use stirct'
 const config = require('./util/config')
 const fetch = require('node-fetch')
 const client = require('./util/client')
@@ -13,7 +14,6 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const cors = require('cors')
-x=2
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
