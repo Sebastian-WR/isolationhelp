@@ -1,32 +1,9 @@
-
-<div>
+<div id="chat">
     <ul id="messages"></ul>
-    <form id="form" action="">
+    <form id="chat-form">
         <input id="chat-input" autocomplete="off" />
-        <button>Send</button>
+        <button class="btn">Send</button>
     </form>
-
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io()
-
-        var messagelist = document.getElementById('messages')
-        var form = document.getElementById('form')
-        var chatmsg = document.getElementById('chat-input')
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault()
-            if (chatmsg.value) {
-                socket.emit('chat message', chatmsg.value)
-                chatmsg.value = ''
-            }
-        })
-
-        socket.on('chat message', function (msg) {
-            var message = document.createElement('li')
-            message.textContent = msg
-            messagelist.appendChild(message)
-            window.scrollTo(0, document.body.scrollHeight)
-        })
-    </script>
+    <script src="/chat/chat.js"></script>
 </div>

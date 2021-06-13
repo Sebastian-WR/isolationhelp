@@ -8,7 +8,7 @@ const client = new MongoClient(uri, {
     poolSize: 50,
 })
 
-async function connect() {
+const connect = async () => {
     try {
         await client.connect()
         console.log('Database connection established')
@@ -31,7 +31,7 @@ const getClient = async () => {
     return client
 }
 
-async function close() {
+const close = async () => {
     if (client.isConnected()) {
         await client.close()
         console.log('Database connection ended')

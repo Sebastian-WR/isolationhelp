@@ -1,7 +1,13 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
 
-//TODO: add logging
+/* TODO:
+ ** Add logging
+ ** Generic error messages without to much detail
+ ** TOTHINK:
+ ** Where should server validation be router/repo
+ */
+
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
         console.log({ error: 'Yessir' })
@@ -11,11 +17,20 @@ const isAuth = (req, res, next) => {
 }
 router.use(isAuth)
 
-// TODO: Server side data validation Mongoose or Joi
 router.get('/', async (req, res) => {
     let tasks
-    let id = req.session.userId
-    tasks = await tasksRepo.readNotYours(id)
+    const id = req.session.userId
+    const sort = req.query.sort
+    if (sort === 'notyours') {
+        tasks = await tasksRepo.readNotYours(id)
+    } else if (sort === 'mytasks') {
+        tasks = await tasksRepo.readMyTasks(id)
+    } else if (sort === 'myvolunteering') {
+        tasks = await tasksRepo.readMyVolunteer(id)
+    } else {
+        tasks = await tasksRepo.readOneOrMore()
+    }
+
     if (tasks.length > 0) {
         console.log('tasks found')
         return res.send({ tasks })
@@ -26,6 +41,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id
+    if (!id) res.send({ error: 'no id' })
     let task = await tasksRepo.readOne(id)
     if (task) {
         console.log('task found')
@@ -36,28 +52,48 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    const task = req.body.task
+    console.log(task)
     const doc = {}
-    if (req.body.title) doc.title = req.body.title
-    if (req.body.description) doc.description = req.body.description
-    if (req.body.category) doc.category = req.body.category
-    if (req.body.reward) doc.reward = req.body.reward
-    if (req.body.location) doc.location = req.body.location
-    if (req.body.date) doc.date = req.body.date
+    if (task.title) doc.title = task.title
+    if (task.description) doc.description = task.description
+    if (task.category) doc.category = task.category
+    if (task.reward) doc.reward = task.reward
+    if (task.location) doc.location = task.location
+    if (task.date) doc.date = task.date
+    if (task.time) doc.time = task.time
     if (req.session.userId) doc.createdById = req.session.userId
-    if (req.body.time) doc.time = req.body.time
+    console.log(doc)
     let success = await tasksRepo.createOne(doc)
-    if (success !== true) {
-        return res.send({ success })
+    console.log(success)
+    if (!success) {
+        return res.send({ error: 'Error adding' })
     }
-
-    res.redirect('/myTasks')
+    res.send(success)
 })
 
-//TODO: only update your own if not admin
+//TODO: only update your own if not admin only take not yours
 router.patch('/:id', async (req, res) => {
+    let success
     const id = req.params.id
-    const fields = req.body
-    let success = await tasksRepo.updateOne(id, fields)
+    const type = req.body.type
+    const fields = req.body.fields
+    const userId = req.session.userId
+    if (type == 'take' && userId) {
+        field = {
+            takenById: userId,
+        }
+        success = await tasksRepo.updateOne(id, field)
+    } else if (type == 'remove') {
+        console.log('removed action')
+        field = {
+            takenById: '',
+        }
+        success = await tasksRepo.removeField(id, field)
+    } else {
+        success = await tasksRepo.updateOne(id, fields)
+    }
+
     if (success) {
         console.log('task updated')
         return res.send({ success })
@@ -66,7 +102,7 @@ router.patch('/:id', async (req, res) => {
     res.send({ error: 'No tasks found' })
 })
 
-//TODO: only deleted your own if not admin
+//TODO: only delete your own if not admin
 router.delete('/:id', async (req, res) => {
     const id = req.params.id
     let success = await tasksRepo.deleteOne(id)

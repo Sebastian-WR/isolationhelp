@@ -2,6 +2,13 @@ const client = require('../util/client')
 const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
+const Category = Object.freeze({
+    SHOPPING: 'SHOPPING',
+    GARDENING: 'GARDENING',
+    CLEANING: 'CLEANING',
+    ANIMALS: 'ANIMALS',
+})
+
 const Joi = require('joi')
 
 const schema = Joi.object({
@@ -39,13 +46,38 @@ const readOneOrMore = async (fields) => {
     return tasks
 }
 
+const readMyTasks = async (field) => {
+    let tasks = []
+    try {
+        const db = await client.getDB()
+        tasks = await db.collection(colName).find({ createdById: field }).toArray()
+    } catch (error) {
+        console.log(error)
+    }
+    return tasks
+}
+
+const readMyVolunteer = async (field) => {
+    let tasks = []
+    try {
+        const db = await client.getDB()
+        tasks = await db.collection(colName).find({ takenById: field }).toArray()
+    } catch (error) {
+        console.log(error)
+    }
+    return tasks
+}
+
 const readNotYours = async (field) => {
     let tasks = []
     try {
         const db = await client.getDB()
-        tasks = await db.collection(colName).find( {createdById: { $nin: [ field ] } } ).toArray()
+        tasks = await db
+            .collection(colName)
+            .find({ createdById: { $ne: field }, takenById: { $ne: field } })
+            .toArray()
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
     return tasks
 }
@@ -67,16 +99,32 @@ const createOne = async (doc) => {
     }
     return success
 }
-const updateOne = async (id, fields) => {
-    const filter = { _id: id }
+const removeField = async (id, fields) => {
+    const filter = { _id: ObjectId(id) }
     const options = { upsert: false }
-    const doc = {
+    const update = {
+        $unset: fields,
+    }
+    let success
+    try {
+        const db = await client.getDB()
+        const result = await db.collection(colName).updateOne(filter, update, options)
+        result.matchedCount === 1 ? (success = true) : (success = false)
+    } catch (error) {
+        console.log(error)
+    }
+    return success
+}
+const updateOne = async (id, fields) => {
+    const filter = { _id: ObjectId(id) }
+    const options = { upsert: false }
+    const update = {
         $set: fields,
     }
     let success
     try {
         const db = await client.getDB()
-        const result = await db.collection(colName).updateOne(filter, doc, options)
+        const result = await db.collection(colName).updateOne(filter, update, options)
         result.matchedCount === 1 ? (success = true) : (success = false)
     } catch (error) {
         console.log(error)
@@ -85,10 +133,13 @@ const updateOne = async (id, fields) => {
 }
 
 const deleteOne = async (field) => {
+    id = {
+        _id: ObjectId(field),
+    }
     let success
     try {
         const db = await client.getDB()
-        const result = await db.collection(colName).deleteOne(field)
+        const result = await db.collection(colName).deleteOne(id)
         result.deletedCount === 1 ? (success = true) : (success = false)
     } catch (error) {
         console.log(error)
@@ -99,8 +150,11 @@ const deleteOne = async (field) => {
 module.exports = {
     readOne,
     readOneOrMore,
+    readMyTasks,
+    readMyVolunteer,
     readNotYours,
     createOne,
     updateOne,
+    removeField,
     deleteOne,
 }

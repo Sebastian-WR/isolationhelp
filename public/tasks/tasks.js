@@ -1,9 +1,6 @@
-//make ths for headerRow
-//make trs with td for tableBody
-
-;(async function getTasks() {
+;(async () => {
     try {
-        const response = await fetch('/api/tasks')
+        const response = await fetch('/api/tasks/?sort=notyours')
         const body = await response.json()
         const tasks = body.tasks
 
@@ -19,12 +16,8 @@
             tableRow.append(
                 $('<td></td>').append(
                     $('<a></a>')
-                        .attr('href', `/tasks/${task._id}`)
-                        .append(
-                            $('<button></button>')
-                                .text('Details')
-                                .attr({ type: 'button', class: 'table-btn' }),
-                        ),
+                        .attr('href', `/tasks/?id=${task._id}`)
+                        .append($('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' })),
                 ),
             )
 

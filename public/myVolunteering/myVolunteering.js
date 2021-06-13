@@ -1,11 +1,6 @@
-$('#go-to-create').click(() => {
-    console.log(location)
-    location.href = '/mytasks/new'
-    console.log(location)
-})
 ;(async () => {
     try {
-        const response = await fetch(`/api/tasks/?sort=mytasks`)
+        const response = await fetch(`/api/tasks/?sort=myvolunteering`)
         const body = await response.json()
         const tasks = body.tasks
 
@@ -18,11 +13,10 @@ $('#go-to-create').click(() => {
                 tableRow.append($('<td></td>').text(task.category ? task.category : 'NO CATEGORY'))
                 tableRow.append($('<td></td>').text(task.location ? task.location : 'NO LOCATION'))
                 tableRow.append($('<td></td>').text(task.date ? task.date : 'NO DATE'))
-                tableRow.append($('<td></td>').text(task.takenById ? 'TAKEN' : 'OPEN'))
                 tableRow.append(
                     $('<td></td>').append(
                         $('<a></a>')
-                            .attr('href', `/mytasks/?id=${task._id}`)
+                            .attr('href', `/myvolunteering/?id=${task._id}`)
                             .append(
                                 $('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' }),
                             ),
@@ -34,7 +28,6 @@ $('#go-to-create').click(() => {
         } else {
             const tableRow = $('<tr></tr>')
 
-            tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))
             tableRow.append($('<td></td>').text('N/A'))

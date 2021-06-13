@@ -3,9 +3,12 @@ const crypt = require('../util/crypt')
 const mail = require('../util/mail')
 const usersRepo = require('../repos/users')
 
-// TODO:
-// What if hash returns error?
-// What if email can't be sent?
+/* TODO:
+ ** Delete user after some time, if not validated
+ ** TOTHINK:
+ ** What if hash returns error?
+ ** What if email can't be sent?
+ */
 
 router.post('/signup', async (req, res) => {
     const name = req.body.name
@@ -46,40 +49,44 @@ router.post('/signup', async (req, res) => {
 
 // TODO: delete token after validation
 router.post('/signin', async (req, res) => {
+    const SIGNINERROR = 'There was a problem signing in'
+    const NOTVERIFIEDERROR = 'Email has not been verified check your inbox'
     const email = req.body.email
     const password = req.body.password
     const token = req.body.token
 
     const exsistingUser = await usersRepo.readOne({ email: email })
     if (!exsistingUser) {
-        return res.status(404).send({ message: 'Could not find user with this email' })
+        return res.status(404).send({ message: SIGNINERROR })
     }
 
     if (!exsistingUser.validated) {
         if (token !== exsistingUser.token) {
             const sentMail = await mail.sendConfirmation(exsistingUser.email, exsistingUser.token)
             if (!sentMail) {
-                return res.status(500).send({ message: 'Error sending comfirmation email' })
+                return res.status(500).send({ message: SIGNINERROR })
             }
-            return res.status(401).send({ message: 'User is not validated ' })
+            return res.status(401).send({ message: NOTVERIFIEDERROR })
         }
         const result = await usersRepo.updateOne(exsistingUser._id, { validated: true })
         if (!result) {
-            return res.status(500).send({ message: 'Could update user' })
+            return res.status(500).send({ message: SIGNINERROR })
         }
     }
 
     const result = await crypt.comparePassword(password, exsistingUser.password)
-    if (result) {
-        req.session.isAuth = true
-        req.session.userId = exsistingUser._id
-        return res.status(201).send({ success: true })
+
+    if (!result) {
+        res.status(404).send({ message: SIGNINERROR })
     }
 
-    res.status(204).send({ message: 'Password incorrect' })
+    req.session.isAuth = true
+    req.session.userId = exsistingUser._id
+    req.session.userName = exsistingUser.name
+    req.session.isAdmin = exsistingUser.admin
+    return res.status(201).send({ success: true })
 })
 
-// TODO handle validation
 router.get('/signout', (req, res) => {
     req.session.destroy()
     res.redirect('/')
