@@ -28,8 +28,8 @@ v16.16.0
 
 -   [Project Name](#project-name)
     -   [Hosted](#hosted)
-        -   Heroku(#heroku)
-        -   AWS(#aws)
+        -   [Heroku](#heroku)
+        -   [AWS](#aws)
     -   [Prerequisites](#prerequisites)
     -   [Table of contents](#table-of-contents)
     -   [Getting Started](#getting-started)
