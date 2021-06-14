@@ -27,7 +27,6 @@ const schema = Joi.object({
 
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
-        console.log({ error: 'Yessir' })
         return res.status(204).send({ error: 'Not authenticated' })
     }
     next()
@@ -49,10 +48,9 @@ router.get('/', async (req, res) => {
     }
 
     if (tasks.length > 0) {
-        console.log('tasks found')
         return res.send({ tasks })
     }
-    console.log('No tasks found')
+
     res.send({ error: 'No tasks found' })
 })
 
@@ -61,10 +59,8 @@ router.get('/:id', async (req, res) => {
     if (!id) res.send({ error: 'no id' })
     let task = await tasksRepo.readOne(id)
     if (task) {
-        console.log('task found')
         return res.send({ task })
     }
-    console.log('task missing')
     res.send({ error: 'task missing' })
 })
 
