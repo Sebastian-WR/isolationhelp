@@ -26,12 +26,6 @@ $('#submit-sign-up').click(async () => {
     const email = $('#email-sign-up').val()
     const password = $('#password-sign-up').val()
 
-    if (name === '' || email === '' || password === '') {
-        const tooltip = $('<p></p>').text(body.success)
-        container.append(tooltip)
-        return
-    }
-
     const result = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -46,7 +40,7 @@ $('#submit-sign-up').click(async () => {
     const body = await result.json()
     const error = $('#signup-error')
     if (body.success) {
-        error.text(body.success)
+        error.text('Congrats! check your email')
     } else {
         error.text(body.message)
     }

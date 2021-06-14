@@ -53,17 +53,6 @@
     min-height: 10rem;
 }
 
-#submit-task {
-    float: right;
-    width: 8rem;
-    height: 4rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #1d3557;
-    border-radius: 1rem;
-    cursor: pointer;
-}
-
 .only-edit {
     display: none;
 }

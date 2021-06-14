@@ -3,19 +3,6 @@ const colName = 'users'
 const ObjectId = require('mongodb').ObjectId
 const Joi = require('joi')
 
-// TODO:
-// Update validation constraints
-// Update error handeling
-
-const schema = Joi.object({
-    _id: Joi.string(),
-    name: Joi.string().required(),
-    password: Joi.string().required(),
-    email: Joi.string().required(),
-    validated: Joi.boolean().required(),
-    token: Joi.string(),
-})
-
 const readOne = async (field) => {
     let user
     try {
@@ -44,9 +31,6 @@ const readOneOrMore = async (fields) => {
 const createOne = async (doc) => {
     let result = false
     try {
-        const value = await schema.validateAsync(doc)
-        if (!value) return result
-
         const db = await client.getDB()
         const response = await db.collection(colName).insertOne(doc)
         response.insertedCount === 1 ? (result = true) : (result = false)

@@ -2,46 +2,60 @@ const router = require('express').Router()
 const crypt = require('../util/crypt')
 const mail = require('../util/mail')
 const usersRepo = require('../repos/users')
+const Joi = require('joi')
 
-/* TODO:
- ** Delete user after some time, if not validated
- ** TOTHINK:
- ** What if hash returns error?
- ** What if email can't be sent?
- */
+const SIGNINERROR = 'There was a problem signing in check email and password'
+const INTERNALERROR = 'Oops something went wrong contact support'
+const NOTVERIFIEDERROR = 'Email has not been verified check your inbox'
+const EMAILALREADYINUSE = 'Email has already been assosiated with an account'
+
+const schema = Joi.object({
+    _id: Joi.string(),
+    name: Joi.string().required(),
+    password: Joi.string().required(),
+    email: Joi.string().email().required(),
+    validated: Joi.boolean().required(),
+    token: Joi.string(),
+})
 
 router.post('/signup', async (req, res) => {
     const name = req.body.name
     const email = req.body.email
     const password = req.body.password
+    const encrypted = password ? await crypt.hashPassword(password) : undefined
 
     const newUser = {
         name: name,
-        password: await crypt.hashPassword(password),
+        password: encrypted,
         email: email,
         validated: false,
         token: crypt.generateToken(),
     }
+    try {
+        await schema.validateAsync(newUser)
+    } catch (error) {
+        return res.send({ message: error.message })
+    }
 
     const exsistingUser = await usersRepo.readOne({ email: email })
     if (exsistingUser && exsistingUser.validated) {
-        return res.status(409).send({ message: 'Email is already assosiated with an account' })
+        return res.status(409).send({ message: EMAILALREADYINUSE })
     } else if (exsistingUser && !exsistingUser.validated) {
         const sentMail = await mail.sendConfirmation(exsistingUser.email, exsistingUser.token)
         if (!sentMail) {
-            return res.status(500).send({ message: 'Error sending comfirmation email' })
+            return res.status(500).send({ message: INTERNALERROR })
         }
-        return res.status(409).send({ message: 'Email is not confirmed please check inbox' })
+        return res.status(409).send({ message: NOTVERIFIEDERROR })
     }
 
     const addedUser = await usersRepo.createOne(newUser)
     if (!addedUser) {
-        return res.status(500).send({ message: 'Error adding user' })
+        return res.status(500).send({ message: INTERNALERROR })
     }
 
     const sentMail = await mail.sendConfirmation(newUser.email, newUser.token)
     if (!sentMail) {
-        return res.status(500).send({ message: 'Error sending comfirmation email' })
+        return res.status(500).send({ message: INTERNALERROR })
     }
 
     res.status(201).send({ success: true })
@@ -49,8 +63,6 @@ router.post('/signup', async (req, res) => {
 
 // TODO: delete token after validation
 router.post('/signin', async (req, res) => {
-    const SIGNINERROR = 'There was a problem signing in'
-    const NOTVERIFIEDERROR = 'Email has not been verified check your inbox'
     const email = req.body.email
     const password = req.body.password
     const token = req.body.token
@@ -64,13 +76,13 @@ router.post('/signin', async (req, res) => {
         if (token !== exsistingUser.token) {
             const sentMail = await mail.sendConfirmation(exsistingUser.email, exsistingUser.token)
             if (!sentMail) {
-                return res.status(500).send({ message: SIGNINERROR })
+                return res.status(500).send({ message: INTERNALERROR })
             }
             return res.status(401).send({ message: NOTVERIFIEDERROR })
         }
         const result = await usersRepo.updateOne(exsistingUser._id, { validated: true })
         if (!result) {
-            return res.status(500).send({ message: SIGNINERROR })
+            return res.status(500).send({ message: INTERNALERROR })
         }
     }
 

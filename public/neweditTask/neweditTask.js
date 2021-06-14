@@ -26,6 +26,7 @@ const idParam = urlParams.get('id')
 })()
 
 $('#submit-task').click(async () => {
+    $('#create-error').text('')
     const task = {}
     if ($('#create-task-title').val()) task.title = $('#create-task-title').val()
     if ($('#create-task-category').val()) task.category = $('#create-task-category').val()
@@ -34,23 +35,28 @@ $('#submit-task').click(async () => {
     if ($('#create-task-time').val()) task.time = $('#create-task-time').val()
     if ($('#create-task-reward').val()) task.reward = $('#create-task-reward').val()
     if ($('#create-task-description').val()) task.description = $('#create-task-description').val()
+    try {
+        const result = await fetch('/api/tasks/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                task: task,
+            }),
+        })
 
-    const result = await fetch('/api/tasks/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            fields: task,
-        }),
-    })
-
-    const body = await result.json()
-    if (body.success) {
-        $('#success').text('Success! \nYou created a new task')
-        window.location.href = '/mytasks'
-    } else {
-        console.log(body.message)
+        const body = await result.json()
+        if (body.success) {
+            $('#success').text('You created a new task!')
+            setTimeout(() => {
+                window.location.href = '/mytasks'
+            }, 1000)
+        } else {
+            $('#create-error').text(body.error)
+        }
+    } catch (error) {
+        console.log(error)
     }
 })
 
@@ -76,8 +82,10 @@ $('#edit-task').click(async () => {
 
     const body = await result.json()
     if (body.success) {
-        $('#success').text('Success! \nYou editet a new task')
-        window.location.href = '/mytasks'
+        setTimeout(() => {
+            window.location.href = '/mytasks'
+        }, 1000)
+        $('#success').text('Success! You editet a task')
     } else {
         console.log(body.message)
     }
@@ -93,8 +101,10 @@ $('#delete-task').click(async () => {
 
     const body = await result.json()
     if (body.success) {
-        $('#success').text('Success! \nYou deleted a new task')
-        window.location.href = '/mytasks'
+        $('#success').text('Success! You deleted a task')
+        setTimeout(() => {
+            window.location.href = '/mytasks'
+        }, 1000)
     } else {
         console.log(body.message)
     }

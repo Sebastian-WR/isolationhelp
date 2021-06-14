@@ -2,28 +2,6 @@ const client = require('../util/client')
 const ObjectId = require('mongodb').ObjectId
 const colName = 'tasks'
 
-const Category = Object.freeze({
-    SHOPPING: 'SHOPPING',
-    GARDENING: 'GARDENING',
-    CLEANING: 'CLEANING',
-    ANIMALS: 'ANIMALS',
-})
-
-const Joi = require('joi')
-
-const schema = Joi.object({
-    _id: Joi.string(),
-    title: Joi.string().required(),
-    description: Joi.string().required(),
-    category: Joi.string().allow(''),
-    reward: Joi.string().allow(''),
-    location: Joi.string().allow(''),
-    date: Joi.date().allow(''),
-    createdById: Joi.string().required(),
-    takenById: Joi.string().allow(''),
-    time: Joi.string().allow('').pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')),
-})
-
 const readOne = async (id) => {
     let task = {}
     try {
@@ -85,7 +63,6 @@ const readNotYours = async (field) => {
 const createOne = async (doc) => {
     let success = false
     try {
-        const value = await schema.validateAsync(doc)
         const db = await client.getDB()
         const result = await db.collection(colName).insertOne(doc)
         if (result.insertedCount === 1) {
@@ -94,8 +71,7 @@ const createOne = async (doc) => {
             success = false
         }
     } catch (error) {
-        return error.details[0].message
-        //console.log(error.details[0].message)
+        return error
     }
     return success
 }

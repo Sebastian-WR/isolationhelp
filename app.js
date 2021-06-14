@@ -13,7 +13,6 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const cors = require('cors')
-x=2
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
@@ -46,7 +45,6 @@ app.use(
         },
     }),
 )
-
 app.use(
     rateLimit({
         windowMs: 15 * 60 * 1000,
@@ -54,7 +52,7 @@ app.use(
     }),
 )
 app.use(
-    '/auth',
+    '/auth/*',
     rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 10,

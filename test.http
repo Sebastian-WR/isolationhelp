@@ -1,8 +1,30 @@
-POST http://localhost:3000/api/tasks HTTP/1.1
+### Email server validation 
+POST http://localhost:3000/api/auth/signup HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "hello",
-    "description": "YEAH",
-    "createdById": "$set: {_id: 'hack'}"
+    "name": "hello",
+    "email": "jb",
+    "password": "Cool"
+}
+
+### Email already in use not validated
+
+POST http://localhost:3000/api/auth/signup HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "hello",
+    "email": "ceci138p@stud.kea.dk",
+    "password": "Cool"
+}
+
+###
+
+POST http://localhost:3000/api/auth/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "ceci138p@",
+    "password": "Cool"
 }
