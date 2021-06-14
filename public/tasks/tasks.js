@@ -17,7 +17,9 @@
                 $('<td></td>').append(
                     $('<a></a>')
                         .attr('href', `/tasks/?id=${task._id}`)
-                        .append($('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' })),
+                        .append(
+                            $('<button></button>').text('Details').attr({ type: 'button', class: 'btn table-btn' }),
+                        ),
                 ),
             )
 

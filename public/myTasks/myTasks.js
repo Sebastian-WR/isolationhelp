@@ -1,7 +1,5 @@
 $('#go-to-create').click(() => {
-    console.log(location)
     location.href = '/mytasks/new'
-    console.log(location)
 })
 ;(async () => {
     try {

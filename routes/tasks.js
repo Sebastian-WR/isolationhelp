@@ -1,12 +1,29 @@
 const router = require('express').Router()
 const tasksRepo = require('../repos/tasks')
+const Joi = require('joi')
 
 /* TODO:
- ** Add logging
- ** Generic error messages without to much detail
- ** TOTHINK:
- ** Where should server validation be router/repo
+ ** Update validation constraints
  */
+
+const Category = Object.freeze({
+    SHOPPING: 'SHOPPING',
+    GARDENING: 'GARDENING',
+    CLEANING: 'CLEANING',
+    ANIMALS: 'ANIMALS',
+})
+const schema = Joi.object({
+    _id: Joi.string(),
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    category: Joi.string().allow(''),
+    reward: Joi.string().allow(''),
+    location: Joi.string().allow(''),
+    date: Joi.date().allow(''),
+    createdById: Joi.string().required(),
+    takenById: Joi.string().allow(''),
+    time: Joi.string().allow('').pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')),
+})
 
 const isAuth = (req, res, next) => {
     if (!req.session.isAuth) {
@@ -53,7 +70,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const task = req.body.task
-    console.log(task)
     const doc = {}
     if (task.title) doc.title = task.title
     if (task.description) doc.description = task.description
@@ -63,13 +79,18 @@ router.post('/', async (req, res) => {
     if (task.date) doc.date = task.date
     if (task.time) doc.time = task.time
     if (req.session.userId) doc.createdById = req.session.userId
-    console.log(doc)
+
+    try {
+        await schema.validateAsync(doc)
+    } catch (error) {
+        return res.send({ error: error.message })
+    }
+
     let success = await tasksRepo.createOne(doc)
-    console.log(success)
     if (!success) {
         return res.send({ error: 'Error adding' })
     }
-    res.send(success)
+    res.send({ success })
 })
 
 //TODO: only update your own if not admin only take not yours
