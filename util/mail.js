@@ -19,7 +19,7 @@ const sendConfirmation = async (email, token) => {
     const options = {
         from: mail.user,
         to: email,
-        subject: 'Confirm you email adress',
+        subject: 'Confirm you email address',
         html: confirmationHtml,
     }
     try {
