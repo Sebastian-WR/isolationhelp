@@ -12,6 +12,7 @@
 }
 .tooltip {
     display: flex;
+    padding-left: 1rem;
 }
 
 .tooltip .tooltiptext {
