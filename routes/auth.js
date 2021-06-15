@@ -89,14 +89,14 @@ router.post('/signin', async (req, res) => {
     const result = await crypt.comparePassword(password, exsistingUser.password)
 
     if (!result) {
-        res.status(404).send({ message: SIGNINERROR })
+        return res.status(404).send({ message: SIGNINERROR })
     }
 
     req.session.isAuth = true
     req.session.userId = exsistingUser._id
     req.session.userName = exsistingUser.name
     req.session.isAdmin = exsistingUser.admin
-    return res.status(201).send({ success: true })
+    res.status(201).send({ success: true })
 })
 
 router.get('/signout', (req, res) => {
