@@ -147,8 +147,8 @@ server.listen(process.env.PORT || 3000, (error) => {
 })
 
 io.on('connection', (socket) => {
-    socket.on('chat_message', (message) => {
-        io.emit('chat_message', message)
+    socket.on('client_chat_message', (message) => {
+        io.emit('server_chat_message', message)
     })
 })
 
