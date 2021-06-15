@@ -1,24 +1,26 @@
 const config = require('./util/config')
-const fetch = require('node-fetch')
 const client = require('./util/client')
+
+const fetch = require('node-fetch')
 const helmet = require('helmet')
+const cors = require('cors')
 const rateLimit = require('express-rate-limit')
 const express = require('express')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+
 const fs = require('fs')
+
 const tasksRouter = require('./routes/tasks').router
 const authRouter = require('./routes/auth').router
 
 const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
-const cors = require('cors')
 
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
-app.use(express.urlencoded({ extended: false }))
 app.use(
     helmet({
         contentSecurityPolicy: {
