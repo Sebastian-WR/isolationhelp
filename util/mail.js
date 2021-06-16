@@ -18,7 +18,7 @@ const sendConfirmation = async (email, token) => {
     const confirmationHtml = confirmationTemplate.replace('{{LINK}}', link)
     const options = {
         from: mail.user,
-        to: email,
+        to: mail.dev ? mail.dev : email,
         subject: 'Confirm you email address',
         html: confirmationHtml,
     }

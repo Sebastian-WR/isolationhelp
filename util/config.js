@@ -5,6 +5,7 @@ module.exports = {
     mail: {
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS,
+        dev: process.env.GMAIL_DEV_TO ? process.env.GMAIL_DEV_TO : undefined,
     },
     auth: {
         secret: process.env.AUTH_SECRET,

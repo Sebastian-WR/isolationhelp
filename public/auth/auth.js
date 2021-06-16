@@ -22,24 +22,28 @@ $('#signIn').click(() => {
 })
 
 $('#submit-sign-up').click(async () => {
-    const name = $('#name-sign-up').val()
-    const email = $('#email-sign-up').val()
-    const password = $('#password-sign-up').val()
+    const error = $('#signup-error')
+    error.text('Hold on while we create your account')
 
+    const name = $('#name-sign-up')
+    const email = $('#email-sign-up')
+    const password = $('#password-sign-up')
     const result = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            name: name,
-            email: email,
-            password: password,
+            name: name.val(),
+            email: email.val(),
+            password: password.val(),
         }),
     })
     const body = await result.json()
-    const error = $('#signup-error')
     if (body.success) {
+        name.val('')
+        email.val('')
+        password.val('')
         error.text('Congrats! check your email')
     } else {
         error.text(body.message)
